@@ -19,13 +19,10 @@ export default function LayoutBannerUI(): JSX.Element {
           <SliderItem src="/images/layout/banner01.png" />
         </div>
         <div>
-          <SliderItem src="/images/layout/banner04.png" />
+          <SliderItem src="/images/layout/banner01.png" />
         </div>
         <div>
-          <SliderItem src="/images/layout/banner03.png" />
-        </div>
-        <div>
-          <SliderItem src="/images/layout/banner02.png" />
+          <SliderItem src="/images/layout/banner01.png" />
         </div>
       </Slider>
     </Wrapper>

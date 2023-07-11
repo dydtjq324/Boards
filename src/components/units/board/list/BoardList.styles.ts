@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
+import type { ITextTokenProps } from "./BoardList.types";
 
 export const Wrapper = styled.div`
   width: 1200px;
-  margin: 10px;
+  margin-top: 30px;
 `;
 
 export const TableTop = styled.div`
@@ -74,4 +75,8 @@ export const Button = styled.button`
   :hover {
     background-color: #f5f2fc;
   }
+`;
+
+export const TextToken = styled.span`
+  color: ${(props: ITextTokenProps) => (props.isMatched ? "red" : "black")};
 `;
