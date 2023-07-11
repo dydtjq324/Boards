@@ -1,6 +1,9 @@
 import { getDate } from "../../../../commons/libraries/utils";
 import Paginations01 from "../../../commons/paginations/01/Paginations01.container";
+<<<<<<< HEAD
 import Searchbars01 from "../../../commons/searchbars/01/Searchbars01.container";
+=======
+>>>>>>> 1bb0169783bca8bc62494df73f3fb29217577036
 import * as S from "./BoardList.styles";
 import type { IBoardListUIProps } from "./BoardList.types";
 import { v4 as uuidv4 } from "uuid";
