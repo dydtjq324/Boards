@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import LayoutBanner from "./banner/LayoutBanner.container";
 import LayoutHeader from "./header/LayoutHeader.container";
 import LayoutNavigation from "./navigation/LayoutNavigation.container";
@@ -13,12 +14,17 @@ const Body = styled.div`
 interface ILayoutProps {
   children: JSX.Element;
 }
+
+const hideComponents = ["/login", "/signup"];
 export default function Layout(props: ILayoutProps): JSX.Element {
+  const router = useRouter();
+  const shouldHideComponents = hideComponents.includes(router.pathname);
+
   return (
     <>
-      <LayoutHeader />
-      <LayoutBanner />
-      <LayoutNavigation />
+      {!shouldHideComponents && <LayoutHeader />}
+      {!shouldHideComponents && <LayoutBanner />}
+      {!shouldHideComponents && <LayoutNavigation />}
       <Body>{props.children}</Body>
     </>
   );
