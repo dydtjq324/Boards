@@ -4,6 +4,11 @@ export const Title = styled.h1`
   margin-bottom: 30px;
 `;
 
+export const StyledLink = styled.a`
+  text-decoration: none;
+  cursor: pointer;
+`;
+
 export const Wrapper = styled.div`
   width: 800px;
   margin-top: 100px;

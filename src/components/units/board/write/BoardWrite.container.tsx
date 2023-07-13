@@ -181,7 +181,6 @@ export default function BoardWrite(props: IBoardWriteProps): JSX.Element {
           },
         });
 
-        console.log(result.data?.createBoard._id);
         if (result.data?.createBoard._id === undefined) {
           alert("요청에 문제가 있습니다.");
           return;

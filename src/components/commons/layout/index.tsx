@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import LayoutBanner from "./banner/LayoutBanner.container";
-import LayoutHeader from "./header/LayoutHeader.container";
-import LayoutNavigation from "./navigation/LayoutNavigation.container";
 import styled from "@emotion/styled";
+import LayoutHeaderUI from "./header/LayoutHeader.index";
+import LayoutBannerUI from "./banner/LayoutBanner.index";
+import LayoutNavigationUI from "./navigation/LayoutNavigation.index";
 
 const Body = styled.div`
   height: 500px;
@@ -22,9 +22,9 @@ export default function Layout(props: ILayoutProps): JSX.Element {
 
   return (
     <>
-      {!shouldHideComponents && <LayoutHeader />}
-      {!shouldHideComponents && <LayoutBanner />}
-      {!shouldHideComponents && <LayoutNavigation />}
+      {!shouldHideComponents && <LayoutHeaderUI />}
+      {!shouldHideComponents && <LayoutBannerUI />}
+      {!shouldHideComponents && <LayoutNavigationUI />}
       <Body>{props.children}</Body>
     </>
   );

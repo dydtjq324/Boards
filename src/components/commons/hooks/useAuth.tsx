@@ -1,12 +1,15 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { visitedPagetate } from "../../../commons/stores";
+import { useRecoilState } from "recoil";
 
 export const useAuth = (): void => {
+  const [visitedPage, setVisitedPage] = useRecoilState(visitedPagetate);
   const router = useRouter();
   useEffect(() => {
     if (localStorage.getItem("accessToken") === null) {
       alert("로그인 후 이용가능합니다");
-      void router.push("/23-05-login-check-hoc");
+      void router.push(`/login`);
     }
   });
 };

@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 import type { ITextTokenProps } from "./BoardList.types";
+import { Modal } from "antd";
 
+export const BoardPasswordModal = styled(Modal)``;
 export const Wrapper = styled.div`
   width: 1200px;
   margin-top: 30px;

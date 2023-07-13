@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { MenuItem, Wrapper } from "./LayoutNavigation.styles";
-import type { ILayoutNavigationUIProps } from "./LayoutNavigation.types";
+import { useMoveToPage } from "../../hooks/useMoveToPage";
 
 const NAVIGATION_MENUS = [
   { name: "헬스게시판", page: "/boards" },
@@ -8,14 +8,13 @@ const NAVIGATION_MENUS = [
   { name: "마이페이지", page: "/mypages" },
 ];
 
-export default function LayoutNavigationUI(
-  props: ILayoutNavigationUIProps
-): JSX.Element {
+export default function LayoutNavigationUI(): JSX.Element {
+  const { onClickMoveToPage } = useMoveToPage();
   return (
     <Wrapper>
       {NAVIGATION_MENUS.map((el) => (
         <Fragment key={el.page}>
-          <MenuItem id={el.page} onClick={props.onClickMenu}>
+          <MenuItem id={el.page} onClick={onClickMoveToPage(`${el.page}`)}>
             {el.name}
           </MenuItem>
         </Fragment>

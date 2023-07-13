@@ -1,7 +1,14 @@
 import styled from "@emotion/styled";
 import { LikeOutlined, DislikeOutlined } from "@ant-design/icons";
 import ReactPlayer from "react-player";
+import { Modal } from "antd";
 
+export const PasswordModal = styled(Modal)``;
+
+export const PasswordInput = styled.input`
+  width: 100%;
+  margin-top: 10px;
+`;
 export const Wrapper = styled.div`
   width: 1200px;
   margin: 100px;
@@ -69,6 +76,7 @@ export const BottomWrapper = styled.div`
   justify-content: center;
   padding-top: 80px;
 `;
+export const a = styled.link``;
 
 export const Button = styled.button`
   width: 179px;
