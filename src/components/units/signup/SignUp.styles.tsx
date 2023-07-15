@@ -71,3 +71,15 @@ export const SigUpnBtn = styled.div`
   cursor: pointer;
   border-radius: 10px;
 `;
+
+export const StyledLink = styled.a`
+  text-decoration: none;
+  cursor: pointer;
+`;
+
+export const Error = styled.div`
+  margin-top: 15px;
+  margin-left: 15px;
+`;
+
+export const myForm = styled.form``;

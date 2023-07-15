@@ -11,7 +11,7 @@ import {
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { DELETE_BOARD } from "./BoardDetail.queries";
-import { useMoveToPage } from "../../../commons/hooks/useMoveToPage";
+import { useMoveToPage } from "../../../commons/hooks/custom/useMoveToPage";
 export default function BoardDetailUI(props: IBoardDetailUIProps): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);

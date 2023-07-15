@@ -1,10 +1,10 @@
 import { Fragment } from "react";
 import { MenuItem, Wrapper } from "./LayoutNavigation.styles";
-import { useMoveToPage } from "../../hooks/useMoveToPage";
+import { useMoveToPage } from "../../hooks/custom/useMoveToPage";
 
 const NAVIGATION_MENUS = [
   { name: "헬스게시판", page: "/boards" },
-  { name: "프로틴상품", page: "/markets" },
+  { name: "헬스마켓", page: "/markets" },
   { name: "마이페이지", page: "/mypages" },
 ];
 

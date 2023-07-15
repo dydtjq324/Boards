@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
-import { visitedPagetate } from "../../../commons/stores";
+import { visitedPagetate } from "../../../../commons/stores";
 
 interface IUseMoveToPageReturn {
   visitedPage: string;

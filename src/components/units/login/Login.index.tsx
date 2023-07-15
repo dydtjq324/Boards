@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as S from "./Login.styles";
 import { useMutationLogin } from "../../commons/hooks/mutations/loginMutation";
-import { useMoveToPage } from "../../commons/hooks/useMoveToPage";
+import { useMoveToPage } from "../../commons/hooks/custom/useMoveToPage";
 import { accessTokenState } from "../../../commons/stores";
 import { useRecoilState } from "recoil";
 import Link from "next/link";
@@ -24,14 +24,10 @@ export default function LoginUI(): JSX.Element {
   const [, setAccessToken] = useRecoilState(accessTokenState);
   const { onClickMoveToPage } = useMoveToPage();
   const [loginUser] = useMutationLogin();
-  const { register, handleSubmit, watch, formState } = useForm({
+  const { register, handleSubmit, watch } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-
-  const onClickSubmit = (data: any) => {
-    console.log(data);
-  };
 
   const onClickLogin = async (): Promise<void> => {
     try {
@@ -66,7 +62,7 @@ export default function LoginUI(): JSX.Element {
         </Link>
       </S.Title>
       <S.CardWrapper>
-        <form onSubmit={handleSubmit(onClickSubmit)}>
+        <S.myForm>
           <S.IdInput
             placeholder="이메일"
             type="text"
@@ -77,7 +73,7 @@ export default function LoginUI(): JSX.Element {
             placeholder="비밀번호"
             {...register("myPassword")}
           ></S.PasswordInput>
-        </form>
+        </S.myForm>
         <S.LoginBtn onClick={onClickLogin}>로그인</S.LoginBtn>
         <S.SigUpnBtn onClick={onClickMoveToPage("/signup")}>
           회원가입

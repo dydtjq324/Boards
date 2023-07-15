@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { visitedPagetate } from "../../../commons/stores";
+import { visitedPagetate } from "../../../../commons/stores";
 import { useRecoilState } from "recoil";
 
 export const useAuth = (): void => {

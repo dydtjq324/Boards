@@ -8,7 +8,7 @@ export const StyledLink = styled.a`
   text-decoration: none;
   cursor: pointer;
 `;
-
+export const myForm = styled.form``;
 export const Wrapper = styled.div`
   width: 800px;
   margin-top: 100px;

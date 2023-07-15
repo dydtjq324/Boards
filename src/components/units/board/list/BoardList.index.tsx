@@ -1,28 +1,35 @@
 import { getDate } from "../../../../commons/libraries/utils";
 import { useQueryFetchBoards } from "../../../commons/hooks/queries/useQueryFetchBoards";
 import { useQueryFetchBoardsCount } from "../../../commons/hooks/queries/useQueryFetchBoardsCount";
-import { useMoveToPage } from "../../../commons/hooks/useMoveToPage";
-import { useSearch } from "../../../commons/hooks/useSearch";
-import Paginations01 from "../../../commons/paginations/01/Paginations01.container";
-import Searchbars01 from "../../../commons/searchbars/01/Searchbars01.container";
+import { useMoveToPage } from "../../../commons/hooks/custom/useMoveToPage";
+import { useSearchbar } from "../../../commons/hooks/custom/useSearchbar";
 import * as S from "./BoardList.styles";
 import { v4 as uuidv4 } from "uuid";
+import Paginations01UI from "../../../commons/paginations/01/Paginations01.index";
+import { usePagination } from "../../../commons/hooks/custom/usePagination";
+import Searchbars01UI from "../../../commons/searchbars/01/Searchbars01.index";
 
 const SECRET = "@#$%";
 
 export default function BoardListUI(): JSX.Element {
-  const { keyword, onChangeKeyword } = useSearch();
   const { onClickMoveToPage } = useMoveToPage();
   const { data, refetch } = useQueryFetchBoards();
   const { data: dataBoardsCount, refetch: refetchBoardsCount } =
     useQueryFetchBoardsCount();
+
+  const paginationArgs = usePagination({
+    refetch,
+    count: dataBoardsCount?.fetchBoardsCount,
+  });
+
+  const { keyword, onChangeSearchbar } = useSearchbar({
+    refetch,
+    refetchBoardsCount,
+  });
+
   return (
     <S.Wrapper>
-      <Searchbars01
-        refetch={refetch}
-        refetchBoardsCount={refetchBoardsCount}
-        onChangeKeyword={onChangeKeyword}
-      />
+      <Searchbars01UI onChangeSearchbar={onChangeSearchbar} />
       <S.TableTop />
       <S.Row>
         <S.ColumnHeaderBasic>ID</S.ColumnHeaderBasic>
@@ -54,10 +61,7 @@ export default function BoardListUI(): JSX.Element {
       ))}
       <S.TableBottom />
       <S.Footer>
-        <Paginations01
-          refetch={refetch}
-          count={dataBoardsCount?.fetchBoardsCount}
-        />
+        <Paginations01UI {...paginationArgs} />
         <S.Button onClick={onClickMoveToPage("/boards/new")}>
           <S.PencilIcon src="/images/board/list/write.png" />
           게시물 등록하기
