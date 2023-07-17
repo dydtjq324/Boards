@@ -2,7 +2,8 @@ import styled from "@emotion/styled";
 import { Modal } from "antd";
 import type { ISubmitButtonProps } from "./BoardWrite.types";
 import DaumPostcode from "react-daum-postcode";
-
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 export const Wrapper = styled.div`
   width: 1200px;
   /* height: 1847px; */
@@ -70,6 +71,11 @@ export const Contents = styled.textarea`
   padding-left: 16px;
   padding: 14px;
   border: 1px solid #bdbdbd;
+`;
+
+export const ContentsQuill = styled(ReactQuill)`
+  width: 996px;
+  height: 480px;
 `;
 
 export const ZipcodeWrapper = styled.div`
@@ -178,7 +184,7 @@ export const SubmitButton = styled.button`
 
 export const Error = styled.div`
   padding-top: 10px;
-  font-size: 14px;
+  font-size: 18px;
   color: red;
 `;
 

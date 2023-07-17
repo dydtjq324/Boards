@@ -2,8 +2,8 @@ import { FireFilled } from "@ant-design/icons";
 import styled from "@emotion/styled";
 
 export const Searchbar = styled.div`
-  width: 776px;
-  height: 52px;
+  width: 100%;
+  height: 65px;
   border-radius: 15px;
   background-color: #f5f2fc;
   padding: 0px 20px;
@@ -23,6 +23,7 @@ export const FireFilledIcon = styled(FireFilled)`
 `;
 
 export const SearchbarInput = styled.input`
+  font-size: 23px;
   width: 100%;
   height: 100%;
   border: none;

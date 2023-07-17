@@ -4,16 +4,6 @@ export const Title = styled.h1`
   margin-bottom: 30px;
 `;
 
-export const Error = styled.div`
-  padding-top: 10px;
-  font-size: 18px;
-  color: red;
-`;
-export const StyledLink = styled.a`
-  text-decoration: none;
-  cursor: pointer;
-`;
-export const myForm = styled.form``;
 export const Wrapper = styled.div`
   width: 800px;
   margin-top: 100px;
@@ -81,3 +71,15 @@ export const SigUpnBtn = styled.div`
   cursor: pointer;
   border-radius: 10px;
 `;
+
+export const StyledLink = styled.a`
+  text-decoration: none;
+  cursor: pointer;
+`;
+
+export const Error = styled.div`
+  margin-top: 15px;
+  margin-left: 15px;
+`;
+
+export const myForm = styled.form``;

@@ -35,7 +35,6 @@ export default function BoardCommentListUIItem(
   const onClickDelete = async (
     event: MouseEvent<HTMLButtonElement>
   ): Promise<void> => {
-    // const password = prompt("비밀번호를 입력하세요.");
     try {
       await deleteBoardComment({
         variables: {
@@ -67,10 +66,17 @@ export default function BoardCommentListUIItem(
     setPassword(event.target.value);
   };
 
+  const onCloseModal = () => {
+    setIsOpenDeleteModal(false);
+  };
   return (
     <>
       {isOpenDeleteModal && (
-        <S.PasswordModal visible={true} onOk={onClickDelete}>
+        <S.PasswordModal
+          open={true}
+          onOk={onClickDelete}
+          onCancel={onCloseModal}
+        >
           <div>비밀번호 입력: </div>
           <S.PasswordInput type="password" onChange={onChangeDeletePassword} />
         </S.PasswordModal>

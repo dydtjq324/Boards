@@ -2,20 +2,29 @@ import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
   height: 64px;
-  background-color: #5729ff;
+  background-color: #fee500;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-size: 18px;
-  color: white;
+  font-size: 25px;
+  color: black;
+
+  font-weight: bold;
 `;
 
 export const MenuItem = styled.div`
-  margin: 0px 60px;
   cursor: pointer;
-
+  margin: 0 90px;
   :hover {
-    color: orange;
+    color: navy;
+    font-size: 27px;
   }
+`;
+
+export const MenuContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;

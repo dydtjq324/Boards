@@ -9,3 +9,12 @@ export interface IBoardWriteProps {
 export interface ISubmitButtonProps {
   isActive: boolean;
 }
+
+export interface IFormData {
+  writer: string;
+  title: string;
+  contents: string;
+  password: string;
+  youtubeUrl: string;
+  addressDetail: string;
+}

@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { createBoardMutation } from "../../../commons/hooks/mutations/createBoardMutation";
 import { updateBoardMutation } from "../../../commons/hooks/mutations/updateBoardMutation";
 import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
@@ -6,115 +6,41 @@ import * as S from "./BoardWrite.styles";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
 import type { Address } from "react-daum-postcode";
-import {
-  IQuery,
-  IUpdateBoardInput,
-} from "../../../../commons/types/generated/types";
-import { IBoardWriteProps } from "./BoardWrite.types";
+import { IUpdateBoardInput } from "../../../../commons/types/generated/types";
+import { IBoardWriteProps, IFormData } from "./BoardWrite.types";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schema } from "./BoardWrite.vaildation";
 
+const modules = {
+  toolbar: [
+    [{ header: [1, 2, false] }],
+    ["bold", "italic", "underline", "strike"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    [{ color: [] }],
+    ["link", "image", "video"],
+    ["clean"],
+  ],
+};
 export default function BoardWriteUI(props: IBoardWriteProps): JSX.Element {
+  const router = useRouter();
+
+  const { register, formState, watch, setValue, trigger } = useForm<IFormData>({
+    resolver: yupResolver(schema),
+    mode: "onChange",
+  });
   const [updateBoard] = updateBoardMutation();
   const [createBoard] = createBoardMutation();
-  const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
-  const [writer, setWriter] = useState("");
-  const [password, setPassword] = useState("");
-  const [title, setTitle] = useState("");
-  const [contents, setContents] = useState("");
-  const [youtubeUrl, setYoutubeUrl] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
-  const [addressDetail, setAddressDetail] = useState("");
   const [fileUrls, setFileUrls] = useState(["", "", ""]);
 
-  const [writerError, setWriterError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [titleError, setTitleError] = useState("");
-  const [contentsError, setContentsError] = useState("");
-
-  const onChangeWriter = (event: ChangeEvent<HTMLInputElement>): void => {
-    setWriter(event.target.value);
-    if (event.target.value !== "") {
-      setWriterError("");
-    }
-
-    if (
-      event.target.value !== "" &&
-      password !== "" &&
-      title !== "" &&
-      contents !== ""
-    ) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  };
-
-  const onChangePassword = (event: ChangeEvent<HTMLInputElement>): void => {
-    setPassword(event.target.value);
-    if (event.target.value !== "") {
-      setPasswordError("");
-    }
-
-    if (
-      writer !== "" &&
-      event.target.value !== "" &&
-      title !== "" &&
-      contents !== ""
-    ) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  };
-
-  const onChangeTitle = (event: ChangeEvent<HTMLInputElement>): void => {
-    setTitle(event.target.value);
-    if (event.target.value !== "") {
-      setTitleError("");
-    }
-
-    if (
-      writer !== "" &&
-      password !== "" &&
-      event.target.value !== "" &&
-      contents !== ""
-    ) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  };
-
-  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>): void => {
-    setContents(event.target.value);
-    if (event.target.value !== "") {
-      setContentsError("");
-    }
-
-    if (
-      writer !== "" &&
-      password !== "" &&
-      title !== "" &&
-      event.target.value !== ""
-    ) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  };
-
-  const onChangeYoutubeUrl = (event: ChangeEvent<HTMLInputElement>): void => {
-    setYoutubeUrl(event.target.value);
-  };
-
-  const onChangeAddressDetail = (
-    event: ChangeEvent<HTMLInputElement>
-  ): void => {
-    setAddressDetail(event.target.value);
-  };
+  useEffect(() => {
+    const images = props.data?.fetchBoard.images;
+    if (images !== undefined && images !== null) setFileUrls([...images]);
+  }, [props.data]);
 
   const onClickAddressSearch = (): void => {
     setIsOpen((prev) => !prev);
@@ -135,25 +61,10 @@ export default function BoardWriteUI(props: IBoardWriteProps): JSX.Element {
     setFileUrls(newFileUrls);
   };
 
-  useEffect(() => {
-    const images = props.data?.fetchBoard.images;
-    if (images !== undefined && images !== null) setFileUrls([...images]);
-  }, [props.data]);
-
   const onClickSubmit = async (): Promise<void> => {
-    if (writer === "") {
-      setWriterError("작성자를 입력해주세요.");
-    }
-    if (password === "") {
-      setPasswordError("비밀번호를 입력해주세요.");
-    }
-    if (title === "") {
-      setTitleError("제목을 입력해주세요.");
-    }
-    if (contents === "") {
-      setContentsError("내용을 입력해주세요.");
-    }
-    if (writer !== "" && password !== "" && title !== "" && contents !== "") {
+    const { writer, title, contents, password, youtubeUrl, addressDetail } =
+      watch();
+    if (formState.isValid) {
       try {
         const result = await createBoard({
           variables: {
@@ -177,7 +88,7 @@ export default function BoardWriteUI(props: IBoardWriteProps): JSX.Element {
           alert("요청에 문제가 있습니다.");
           return;
         }
-
+        alert("게시글 정상등록");
         void router.push(`/boards/${result.data?.createBoard._id}`);
       } catch (error) {
         if (error instanceof Error) alert(error.message);
@@ -186,28 +97,14 @@ export default function BoardWriteUI(props: IBoardWriteProps): JSX.Element {
   };
 
   const onClickUpdate = async (): Promise<void> => {
+    const { title, contents, password, youtubeUrl, addressDetail } = watch();
     const currentFiles = JSON.stringify(fileUrls);
     const defaultFiles = JSON.stringify(props.data?.fetchBoard.images);
     const isChangedFiles = currentFiles !== defaultFiles;
-
-    if (
-      title === "" &&
-      contents === "" &&
-      youtubeUrl === "" &&
-      address === "" &&
-      addressDetail === "" &&
-      zipcode === "" &&
-      !isChangedFiles
-    ) {
-      alert("수정한 내용이 없습니다.");
-      return;
-    }
-
     if (password === "") {
       alert("비밀번호를 입력해주세요.");
       return;
     }
-
     const updateBoardInput: IUpdateBoardInput = {};
     if (title !== "") updateBoardInput.title = title;
     if (contents !== "") updateBoardInput.contents = contents;
@@ -238,11 +135,19 @@ export default function BoardWriteUI(props: IBoardWriteProps): JSX.Element {
         alert("요청에 문제가 있습니다.");
         return;
       }
-
+      alert("수정이 완료되었습니다");
       void router.push(`/boards/${result.data?.updateBoard._id}`);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
+  };
+
+  const onChageContents = (value: string): void => {
+    // register로 등록하지않고 강제로 넣어주는 기능
+    // 글 작성하다가 전부지우면 태그들이 남아서 오류체크하는데 어려움이있는걸 해결
+    setValue("contents", value);
+    // onChange 됐으니까 에러검증 같은것들 해달라고 react-hook-form에 알려주는 기능
+    void trigger("contents");
   };
 
   return (
@@ -258,42 +163,45 @@ export default function BoardWriteUI(props: IBoardWriteProps): JSX.Element {
           <S.InputWrapper>
             <S.Label>작성자</S.Label>
             <S.Writer
+              {...register("writer")}
               type="text"
               placeholder="이름을 적어주세요."
-              onChange={onChangeWriter}
               defaultValue={props.data?.fetchBoard.writer ?? ""}
               readOnly={Boolean(props.data?.fetchBoard.writer)}
             />
-            <S.Error>{writerError}</S.Error>
+            <S.Error>{formState.errors.writer?.message}</S.Error>
           </S.InputWrapper>
           <S.InputWrapper>
             <S.Label>비밀번호</S.Label>
             <S.Password
+              {...register("password")}
               type="password"
               placeholder="비밀번호를 작성해주세요."
-              onChange={onChangePassword}
             />
-            <S.Error>{passwordError}</S.Error>
+            <S.Error>{formState.errors.password?.message}</S.Error>
           </S.InputWrapper>
         </S.WriterWrapper>
         <S.InputWrapper>
           <S.Label>제목</S.Label>
           <S.Subject
+            {...register("title")}
             type="text"
             placeholder="제목을 작성해주세요."
-            onChange={onChangeTitle}
             defaultValue={props.data?.fetchBoard.title}
           />
-          <S.Error>{titleError}</S.Error>
+
+          <S.Error>{formState.errors.title?.message}</S.Error>
         </S.InputWrapper>
         <S.InputWrapper>
           <S.Label>내용</S.Label>
-          <S.Contents
+          <S.ContentsQuill
+            modules={modules}
             placeholder="내용을 작성해주세요."
-            onChange={onChangeContents}
+            onChange={onChageContents}
             defaultValue={props.data?.fetchBoard.contents}
           />
-          <S.Error>{contentsError}</S.Error>
+
+          <S.Error>{formState.errors.contents?.message}</S.Error>
         </S.InputWrapper>
         <S.InputWrapper>
           <S.Label>주소</S.Label>
@@ -320,7 +228,7 @@ export default function BoardWriteUI(props: IBoardWriteProps): JSX.Element {
             }
           />
           <S.Address
-            onChange={onChangeAddressDetail}
+            {...register("addressDetail")}
             defaultValue={
               props.data?.fetchBoard.boardAddress?.addressDetail ?? ""
             }
@@ -329,8 +237,8 @@ export default function BoardWriteUI(props: IBoardWriteProps): JSX.Element {
         <S.InputWrapper>
           <S.Label>유튜브</S.Label>
           <S.Youtube
+            {...register("youtubeUrl")}
             placeholder="링크를 복사해주세요."
-            onChange={onChangeYoutubeUrl}
             defaultValue={props.data?.fetchBoard.youtubeUrl ?? ""}
           />
         </S.InputWrapper>
@@ -356,6 +264,7 @@ export default function BoardWriteUI(props: IBoardWriteProps): JSX.Element {
         </S.OptionWrapper>
         <S.ButtonWrapper>
           <S.SubmitButton
+            style={{ backgroundColor: formState.isValid ? "yellow" : "" }}
             onClick={props.isEdit ? onClickUpdate : onClickSubmit}
             isActive={props.isEdit ? true : isActive}
           >

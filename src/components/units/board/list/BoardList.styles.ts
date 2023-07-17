@@ -30,11 +30,17 @@ export const Row = styled.div`
 `;
 
 export const ColumnHeaderBasic = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  color: navy;
   width: 10%;
   text-align: center;
 `;
 
 export const ColumnHeaderTitle = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  color: navy;
   width: 70%;
   text-align: center;
 `;
@@ -57,25 +63,29 @@ export const ColumnTitle = styled.div`
 export const Footer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   padding-top: 50px;
+  margin-bottom: 50px;
 `;
 
 export const PencilIcon = styled.img``;
 
 export const Button = styled.button`
-  width: 171px;
-  height: 52px;
-  background-color: white;
+  width: 200px;
+  height: 60px;
+  background-color: #fee500;
+  border: none;
   border-radius: 15px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
   cursor: pointer;
-
+  font-size: 20px;
+  font-weight: bold;
   :hover {
-    background-color: #f5f2fc;
+    font-size: 24px;
+    color: navy;
   }
 `;
 

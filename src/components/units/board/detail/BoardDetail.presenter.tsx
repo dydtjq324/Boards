@@ -3,6 +3,7 @@ import { getDate } from "../../../../../src/commons/libraries/utils";
 import type { IBoardDetailUIProps } from "./BoardDetail.types";
 import { Tooltip } from "antd";
 import { useState } from "react";
+import Dompurify from "dompurify";
 import type { MouseEvent } from "react";
 import {
   IMutation,
@@ -47,7 +48,7 @@ export default function BoardDetailUI(props: IBoardDetailUIProps): JSX.Element {
     <>
       {isOpenDeleteModal && (
         <S.PasswordModal
-          visible={true}
+          open={true}
           onOk={onClickDelete}
           onCancel={onClickDeleteModal}
         >
@@ -90,7 +91,13 @@ export default function BoardDetailUI(props: IBoardDetailUIProps): JSX.Element {
                   />
                 ))}
             </S.ImageWrapper>
-            <S.Contents>{props.data?.fetchBoard?.contents}</S.Contents>
+            <S.Contents
+              dangerouslySetInnerHTML={{
+                __html: Dompurify.sanitize(
+                  props.data?.fetchBoard.contents ?? ""
+                ),
+              }}
+            ></S.Contents>
             {props.data?.fetchBoard.youtubeUrl !== "" && (
               <S.Youtube
                 url={props.data?.fetchBoard.youtubeUrl ?? ""}
