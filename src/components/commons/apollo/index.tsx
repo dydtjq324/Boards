@@ -25,7 +25,8 @@ export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
   useEffect(() => {
     // const result = localStorage.getItem("accessToken"); 기존방식
     // 리프레시 토큰 방식
-    void aaa.toPromise().then((newAccessToken) => {
+
+    void getAccessToken().then((newAccessToken) => {
       setAccessToken(newAccessToken ?? "");
     });
   }, []);

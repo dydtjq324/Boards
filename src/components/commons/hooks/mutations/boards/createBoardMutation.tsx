@@ -3,7 +3,7 @@ import { gql } from "@apollo/client";
 import {
   IMutation,
   IMutationCreateBoardArgs,
-} from "../../../../commons/types/generated/types";
+} from "../../../../../commons/types/generated/types";
 
 const CREATE_BOARD = gql`
   mutation createBoard($createBoardInput: CreateBoardInput!) {

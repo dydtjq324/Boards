@@ -1,5 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
-import { IMutation } from "../../../../commons/types/generated/types";
+import { IMutation } from "../../../../../commons/types/generated/types";
 
 const LOGOUT_USER = gql`
   mutation logoutUser {

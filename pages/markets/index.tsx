@@ -1,5 +1,5 @@
-import BoardListUI from "../../src/components/units/board/list/BoardList.index";
+import MarketListUI from "../../src/components/units/market/list/BoardList.index";
 
-export default function BoardsPage(): JSX.Element {
-  return <BoardListUI />;
+export default function MarketsPage(): JSX.Element {
+  return <MarketListUI />;
 }

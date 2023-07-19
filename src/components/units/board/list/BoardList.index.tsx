@@ -1,6 +1,6 @@
 import { getDate } from "../../../../commons/libraries/utils";
-import { useQueryFetchBoards } from "../../../commons/hooks/queries/useQueryFetchBoards";
-import { useQueryFetchBoardsCount } from "../../../commons/hooks/queries/useQueryFetchBoardsCount";
+import { useQueryFetchBoards } from "../../../commons/hooks/queries/boards/useQueryFetchBoards";
+import { useQueryFetchBoardsCount } from "../../../commons/hooks/queries/boards/useQueryFetchBoardsCount";
 import { useMoveToPage } from "../../../commons/hooks/custom/useMoveToPage";
 import { useSearchbar } from "../../../commons/hooks/custom/useSearchbar";
 import * as S from "./BoardList.styles";
@@ -8,12 +8,14 @@ import { v4 as uuidv4 } from "uuid";
 import Paginations01UI from "../../../commons/paginations/01/Paginations01.index";
 import { usePagination } from "../../../commons/hooks/custom/usePagination";
 import Searchbars01UI from "../../../commons/searchbars/01/Searchbars01.index";
+import { useQueryFetchBoardOfTheBest } from "../../../commons/hooks/queries/boards/useQueryFetchBoardOfTheBest";
 
 const SECRET = "@#$%";
 
 export default function BoardListUI(): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
   const { data, refetch } = useQueryFetchBoards();
+  const { data: bestdata } = useQueryFetchBoardOfTheBest();
   const { data: dataBoardsCount, refetch: refetchBoardsCount } =
     useQueryFetchBoardsCount();
 
@@ -29,6 +31,34 @@ export default function BoardListUI(): JSX.Element {
 
   return (
     <S.Wrapper>
+      <S.BestTitle>베스트 게시물</S.BestTitle>
+      <S.BestContainer>
+        {bestdata?.fetchBoardsOfTheBest.map((el) => (
+          <S.BestItemCoinTainer
+            key={el._id}
+            onClick={onClickMoveToPage(`/boards/${el._id}`)}
+          >
+            {el.images && el.images[0] && (
+              <S.BestItemimg
+                src={`https://storage.googleapis.com/${el.images[0]}`}
+              />
+            )}
+            <S.BestItemContent>
+              <S.BestItemTitle>{el.title} </S.BestItemTitle>
+              <S.BestItemDetainContainer>
+                <S.BestItemUser>
+                  <S.PeopleIcon rev={undefined} /> {el.writer}
+                </S.BestItemUser>
+                <S.BestItemUser>
+                  <S.LikeIcon rev={undefined} />
+                  {Number(el.likeCount)}
+                </S.BestItemUser>
+              </S.BestItemDetainContainer>
+            </S.BestItemContent>
+          </S.BestItemCoinTainer>
+        ))}
+      </S.BestContainer>
+
       <Searchbars01UI onChangeSearchbar={onChangeSearchbar} />
       <S.TableTop />
       <S.Row>

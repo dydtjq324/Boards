@@ -2,22 +2,24 @@ import { gql, useQuery } from "@apollo/client";
 import {
   IQuery,
   IQueryFetchBoardArgs,
-} from "../../../../commons/types/generated/types";
+} from "../../../../../commons/types/generated/types";
 
-const FETCH_BOARD = gql`
+export const FETCH_BOARD = gql`
   query fetchBoard($boardId: ID!) {
     fetchBoard(boardId: $boardId) {
       _id
       writer
       title
       contents
-      dislikeCount
       youtubeUrl
+      likeCount
+      dislikeCount
       boardAddress {
         zipcode
         address
         addressDetail
       }
+      images
       createdAt
     }
   }

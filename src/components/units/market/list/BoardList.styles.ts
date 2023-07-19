@@ -1,20 +1,12 @@
 import type { ITextTokenProps } from "./BoardList.types";
 import { Modal } from "antd";
 import styled from "@emotion/styled";
-import { LikeOutlined, UserOutlined } from "@ant-design/icons";
+import { LikeFilled } from "@ant-design/icons";
 
-export const PeopleIcon = styled(UserOutlined)`
-  font-size: 20px;
+export const LikeIcon = styled(LikeFilled)`
+  font-size: 24px;
   color: #ffd600;
-  margin: 0px 5px;
-  cursor: pointer;
-`;
-
-export const LikeIcon = styled(LikeOutlined)`
-  font-size: 20px;
-  color: #ffd600;
-  margin: 0px 5px;
-  cursor: pointer;
+  margin: 0px 3px;
 `;
 export const BoardPasswordModal = styled(Modal)``;
 export const Wrapper = styled.div`
@@ -98,7 +90,8 @@ export const Button = styled.button`
   font-size: 20px;
   font-weight: bold;
   :hover {
-    transform: scale(1.3);
+    font-size: 24px;
+    color: navy;
   }
 `;
 
@@ -107,7 +100,6 @@ export const TextToken = styled.span`
 `;
 export const BestTitle = styled.h1`
   text-align: center;
-  margin-bottom: 15px;
 `;
 export const BestContainer = styled.div`
   display: flex;
@@ -119,7 +111,7 @@ export const BestContainer = styled.div`
 
 export const BestItemCoinTainer = styled.div`
   width: 250px;
-  height: 230px;
+  height: 240px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px gray;
   display: flex;
@@ -138,23 +130,13 @@ export const BestItemimg = styled.img`
 
 export const BestItemContent = styled.div`
   display: flex;
-  font-size: 20px;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   height: 100%;
 `;
 export const BestItemTitle = styled.div`
-  margin-top: 5px;
-  margin: 0px 5px;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
 `;
-export const BestItemUser = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 5px;
-`;
-export const BestItemDetainContainer = styled.div`
-  display: flex;
-`;
+export const BestItemUser = styled.div``;

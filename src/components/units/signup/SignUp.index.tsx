@@ -2,7 +2,7 @@ import * as S from "./SignUp.styles";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMoveToPage } from "../../commons/hooks/custom/useMoveToPage";
-import { useMutationSignUp } from "../../commons/hooks/mutations/signUpMutation";
+import { useMutationSignUp } from "../../commons/hooks/mutations/user/signUpMutation";
 import { schemaSignUp } from "./SignUp.vaildation";
 import Link from "next/link";
 

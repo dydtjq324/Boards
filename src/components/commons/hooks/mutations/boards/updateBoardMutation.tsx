@@ -2,7 +2,7 @@ import { gql, useMutation } from "@apollo/client";
 import {
   IMutation,
   IMutationUpdateBoardArgs,
-} from "../../../../commons/types/generated/types";
+} from "../../../../../commons/types/generated/types";
 
 const UPDATE_BOARD = gql`
   mutation updateBoard(

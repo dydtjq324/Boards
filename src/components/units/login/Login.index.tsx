@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as S from "./Login.styles";
-import { useMutationLogin } from "../../commons/hooks/mutations/loginMutation";
+import { useMutationLogin } from "../../commons/hooks/mutations/user/loginMutation";
 import { useMoveToPage } from "../../commons/hooks/custom/useMoveToPage";
 import { accessTokenState } from "../../../commons/stores";
 import { useRecoilState } from "recoil";
@@ -37,7 +37,7 @@ export default function LoginUI(): JSX.Element {
         // localStorage.setItem("accessToken", accessToken); 로컬스토리지 보안상 취약해서 -> 리프레쉬토큰으로 변경
 
         alert("로그인 성공");
-        onClickMoveToPage("/mypage")();
+        onClickMoveToPage("/")();
         // 로그인 성공 페이지로 이동
       } catch (error) {
         if (error instanceof Error) alert(error.message);

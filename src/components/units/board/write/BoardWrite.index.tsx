@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { createBoardMutation } from "../../../commons/hooks/mutations/createBoardMutation";
-import { updateBoardMutation } from "../../../commons/hooks/mutations/updateBoardMutation";
+import { createBoardMutation } from "../../../commons/hooks/mutations/boards/createBoardMutation";
+import { updateBoardMutation } from "../../../commons/hooks/mutations/boards/updateBoardMutation";
 import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
 import * as S from "./BoardWrite.styles";
 import { v4 as uuidv4 } from "uuid";

@@ -98,6 +98,8 @@ export const IconWrapper = styled.div`
 
 export const Youtube = styled(ReactPlayer)`
   margin: auto;
+  width: 486px;
+  height: 240px;
 `;
 
 export const LikeWrapper = styled.div`

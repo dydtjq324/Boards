@@ -6,7 +6,7 @@ export const schema = yup.object({
   contents: yup.string().required("내용를 입력해주세요"),
   password: yup
     .string()
-    .min(4, "비밀번호는 4자리이상")
+    .min(2, "비밀번호는 2자리이상")
     .max(15, "15자리 이하")
     .required("필수입니다"),
   youtubeUrl: yup.string(),

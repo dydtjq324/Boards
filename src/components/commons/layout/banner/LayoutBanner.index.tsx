@@ -5,9 +5,10 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function LayoutBannerUI(): JSX.Element {
   const settings = {
-    dots: true,
     infinite: true,
-    speed: 500,
+    speed: 700,
+    autoplay: true, // 자동으로 넘어가도록 추가
+    autoplaySpeed: 2500,
     slidesToShow: 1,
     slidesToScroll: 1,
   };
@@ -15,15 +16,10 @@ export default function LayoutBannerUI(): JSX.Element {
   return (
     <Wrapper>
       <Slider {...settings}>
-        <div>
-          <SliderItem src="/images/layout/banner01.png" />
-        </div>
-        <div>
-          <SliderItem src="/images/layout/banner02.png" />
-        </div>
-        <div>
-          <SliderItem src="/images/layout/banner03.png" />
-        </div>
+        <SliderItem src="/images/layout/banner01.png" />
+        <SliderItem src="/images/layout/banner02.png" />
+        <SliderItem src="/images/layout/banner03.png" />
+        <SliderItem src="/images/layout/banner04.png" />
       </Slider>
     </Wrapper>
   );

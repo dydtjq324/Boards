@@ -1,7 +1,8 @@
-import LoginUI from "../../src/components/units/login/Login.index";
-import MyPageUI from "../../src/components/units/myInfo/Myinfo.index";
+import { useAuth } from "../../src/components/commons/hooks/custom/useAuth";
+import MyPageUI from "../../src/components/units/mypage/Myinfo.index";
 
 export default function Mypage(): JSX.Element {
+  useAuth();
   return <MyPageUI />;
 }
 
