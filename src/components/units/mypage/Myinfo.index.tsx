@@ -1,73 +1,60 @@
-import { gql, useMutation } from "@apollo/client";
-import { useQueryLoggedIn } from "../../commons/hooks/queries/user/useLoggedIn";
-
-import { useState } from "react";
-import {
-  IMutation,
-  IMutationCreatePointTransactionOfLoadingArgs,
-} from "../../../commons/types/generated/types";
-
 declare const window: typeof globalThis & {
   IMP: any;
 };
-
-export const DISLIKE_BOARD = gql`
-  mutation dislikeBoard($boardId: ID!) {
-    dislikeBoard(boardId: $boardId)
-  }
-`;
-const CREATE_POING = gql`
-  mutation createPointTransactionOfLoading($impUid: ID!) {
-    createPointTransactionOfLoading(impUid: $impUid) {
-      _id
-    }
-  }
-`;
-
+import {
+  FETCH_USER_LOGGED_IN,
+  useQueryLoggedIn,
+} from "../../commons/hooks/queries/user/useLoggedIn";
+import { useState } from "react";
+import { useMutationCreatePoint } from "../../commons/hooks/mutations/user/createPoint";
+import * as S from "./Myinfo.styles";
 export default function MyPageUI(): JSX.Element {
   const { data } = useQueryLoggedIn();
-  const [pay, setPay] = useState(3000);
-
+  const [pay, setPay] = useState(0);
+  const [mutation] = useMutationCreatePoint();
   const onChangePay = (e: any) => {
     setPay(e.target.value);
   };
-  const [mutationa] = useMutation<
-    Pick<IMutation, "createPointTransactionOfLoading">,
-    IMutationCreatePointTransactionOfLoadingArgs
-  >(CREATE_POING);
 
   const onClickPayment = (): void => {
-    const IMP = window.IMP;
-    IMP.init("imp49910675");
-
+    const IMP = window.IMP; // 생략 가능
+    IMP.init("imp49910675"); // 예: imp00000000a
     IMP.request_pay(
       {
         pg: "kakaopay",
         pay_method: "card",
         name: "마우스",
         amount: pay,
-        buyer_name: data?.fetchUserLoggedIn.name,
       },
-      async (rsp: any) => {
+      (rsp: any) => {
         if (rsp.success === true) {
-          console.log(rsp);
-          const result = await mutationa({
+          const result = mutation({
             variables: {
               impUid: rsp.imp_uid,
             },
+            refetchQueries: [
+              {
+                query: FETCH_USER_LOGGED_IN,
+              },
+            ],
           });
+          setPay((pre) => 0);
         } else {
-          alert("결제실패");
+          // 결제 실패 시 로직,
         }
       }
     );
   };
+
   return (
     <>
       <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-
+      <S.Title>MYPAGE</S.Title>
+      <S.Avatar src="/images/avatar.png" />
+      <S.Title>{data?.fetchUserLoggedIn.name}</S.Title>
+      <S.MyPoint>{data?.fetchUserLoggedIn.userPoint?.amount} 포인트</S.MyPoint>
       <button onClick={onClickPayment}>결제하기</button>
-      <input onChange={onChangePay} />
+      <input onChange={onChangePay} value={pay} />
     </>
   );
 }

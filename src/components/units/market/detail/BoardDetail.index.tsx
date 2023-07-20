@@ -11,7 +11,7 @@ import { useBoardLike } from "../../../commons/hooks/custom/useBoardLike";
 import { MutationDeleteBoard } from "../../../commons/hooks/mutations/boards/deleteBoardMutation";
 import { useQueryFetchBoard } from "../../../commons/hooks/queries/boards/useQueryFetchBoard";
 import { FETCH_BOARDS } from "../../../commons/hooks/queries/boards/useQueryFetchBoards";
-export default function BoardDetailUI(): JSX.Element {
+export default function BoardDetailUI(props: IBoardDetailUIProps): JSX.Element {
   const { id: boardId } = useQueryIdChecker("boardId");
   const { data } = useQueryFetchBoard({
     boardId: String(boardId),

@@ -1,7 +1,13 @@
 import styled from "@emotion/styled";
+
 export const Title = styled.h1`
-  font-size: 40px;
-  margin-bottom: 30px;
+  font-size: 25px;
+  margin: 20px 0px;
+`;
+
+export const MyPoint = styled.div`
+  font-size: 15px;
+  margin: 10px 0px;
 `;
 
 export const Wrapper = styled.div`
@@ -80,6 +86,10 @@ export const StyledLink = styled.a`
 export const Error = styled.div`
   margin-top: 15px;
   margin-left: 15px;
+`;
+
+export const Avatar = styled.img`
+  width: 80px;
 `;
 
 export const myForm = styled.form``;

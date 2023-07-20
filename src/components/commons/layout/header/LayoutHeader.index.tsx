@@ -43,7 +43,7 @@ export default function LayoutHeaderUI(): JSX.Element {
   return (
     <Wrapper>
       <InnerWrapper>
-        <InnerLogo onClick={onClickMoveToPage("/")}>💎 ReviveMart 💎</InnerLogo>
+        <InnerLogo onClick={onClickMoveToPage("/")}> 💎 Y S </InnerLogo>
         <div>
           <MenuContainer>
             {data == undefined ? (

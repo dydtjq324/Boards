@@ -9,13 +9,12 @@ import { FETCH_BOARD_COMMENTS } from "./BoardCommentList.queries";
 
 export default function BoardCommentList(): JSX.Element {
   const router = useRouter();
-  if (typeof router.query.boardId !== "string") return <></>;
 
   const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchBoardComments">,
     IQueryFetchBoardCommentsArgs
   >(FETCH_BOARD_COMMENTS, {
-    variables: { boardId: router.query.boardId },
+    variables: { boardId: String(router.query.boardId) },
   });
 
   const onLoadMore = (): void => {

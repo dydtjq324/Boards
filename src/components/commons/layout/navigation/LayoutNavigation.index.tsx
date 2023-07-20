@@ -3,9 +3,9 @@ import { MenuItem, Wrapper } from "./LayoutNavigation.styles";
 import { useMoveToPage } from "../../hooks/custom/useMoveToPage";
 
 const NAVIGATION_MENUS = [
-  { name: "Revive Board", page: "/boards" },
-  { name: "Revive Market", page: "/markets" },
-  { name: "Mypage", page: "/mypage" },
+  { name: "마켓", page: "/markets" },
+  { name: "게시판", page: "/boards" },
+  { name: "마이페이지", page: "/mypage" },
 ];
 
 export default function LayoutNavigationUI(): JSX.Element {

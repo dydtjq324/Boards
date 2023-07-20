@@ -5,10 +5,14 @@ const FETCH_UsedBest = gql`
   query fetchUseditemsOfTheBest {
     fetchUseditemsOfTheBest {
       _id
-      name
       price
+      contents
       images
-      tags
+      name
+      pickedCount
+      seller {
+        name
+      }
     }
   }
 `;

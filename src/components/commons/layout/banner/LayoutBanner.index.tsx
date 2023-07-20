@@ -8,7 +8,7 @@ export default function LayoutBannerUI(): JSX.Element {
     infinite: true,
     speed: 700,
     autoplay: true, // 자동으로 넘어가도록 추가
-    autoplaySpeed: 2500,
+    autoplaySpeed: 4000,
     slidesToShow: 1,
     slidesToScroll: 1,
   };
