@@ -1,4 +1,4 @@
-import type { ITextTokenProps } from "./BoardList.types";
+import type { ITextTokenProps } from "./MarketList.types";
 import { Modal } from "antd";
 import styled from "@emotion/styled";
 import { LikeFilled, HeartFilled, MoneyCollectFilled } from "@ant-design/icons";
@@ -75,6 +75,7 @@ export const ItemDetailContainer = styled.div`
   flex-direction: column;
   width: 70%;
   justify-content: space-between;
+  cursor: pointer;
 `;
 export const ColumnHeaderTitle = styled.div`
   margin-bottom: 10px;
@@ -93,16 +94,6 @@ export const ColumnBasic = styled.div`
   text-align: center;
 `;
 
-export const ColumnTitle = styled.div`
-  width: 70%;
-  text-align: center;
-  cursor: pointer;
-
-  :hover {
-    color: blue;
-  }
-`;
-
 export const Footer = styled.div`
   display: flex;
   flex-direction: row;
@@ -114,12 +105,6 @@ export const Footer = styled.div`
 `;
 
 export const PencilIcon = styled.img``;
-
-// border: none;
-// width: 200px;
-// color: black;
-// padding: 10px 5px;
-// background-color: #c4deff;
 
 export const Button = styled.button`
   width: 250px;

@@ -8,6 +8,7 @@ import {
 import { useState } from "react";
 import { useMutationCreatePoint } from "../../commons/hooks/mutations/user/createPoint";
 import * as S from "./Myinfo.styles";
+import Head from "next/head";
 export default function MyPageUI(): JSX.Element {
   const { data } = useQueryLoggedIn();
   const [pay, setPay] = useState(0);
@@ -38,23 +39,26 @@ export default function MyPageUI(): JSX.Element {
               },
             ],
           });
-          setPay((pre) => 0);
         } else {
           // 결제 실패 시 로직,
         }
       }
     );
+
+    setPay((pre) => 0);
   };
 
   return (
     <>
-      <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+      <Head>
+        <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+      </Head>
       <S.Title>MYPAGE</S.Title>
       <S.Avatar src="/images/avatar.png" />
       <S.Title>{data?.fetchUserLoggedIn.name}</S.Title>
       <S.MyPoint>{data?.fetchUserLoggedIn.userPoint?.amount} 포인트</S.MyPoint>
       <button onClick={onClickPayment}>결제하기</button>
-      <input onChange={onChangePay} value={pay} />
+      <input type="number" onChange={onChangePay} value={pay} />
     </>
   );
 }

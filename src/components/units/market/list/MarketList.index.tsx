@@ -17,7 +17,7 @@ export default function MarketListUI(): JSX.Element {
   const { data: bestdata } = useQueryfetchUseditemsOfTheBest();
   const { data, fetchMore, refetch } = useQueryFetchUseditems();
 
-  console.log(data);
+  console.log(bestdata);
 
   const onLoadMore = (): void => {
     if (data === undefined) return;
@@ -78,7 +78,10 @@ export default function MarketListUI(): JSX.Element {
       {data?.fetchUseditems && (
         <InfiniteScroll pageStart={0} loadMore={onLoadMore} hasMore={true}>
           {data?.fetchUseditems.map((el) => (
-            <S.Row key={el._id}>
+            <S.Row
+              key={el._id}
+              onClick={onClickMoveToPage(`/markets/${el._id}`)}
+            >
               {el.images && el.images[0] ? (
                 <S.ItemImg
                   alt="/images/avatar.png"

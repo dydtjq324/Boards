@@ -75,7 +75,7 @@ export const Contents = styled.textarea`
 
 export const ContentsQuill = styled(ReactQuill)`
   width: 996px;
-  height: 480px;
+  height: 300px;
 `;
 
 export const ZipcodeWrapper = styled.div`
@@ -110,6 +110,7 @@ export const Address = styled.input`
 export const ImageWrapper = styled.div`
   width: 996px;
   padding-top: 40px;
+  margin-bottom: 50px;
 `;
 
 export const ImageBox = styled.div`
@@ -192,6 +193,7 @@ export const AddressContainer = styled.div`
 `;
 
 export const AddressDetailContainer = styled.div`
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
 `;

@@ -1,9 +1,8 @@
-import type { ChangeEvent } from "react";
 import type { IQuery } from "../../../../commons/types/generated/types";
 
 export interface MarketWriteProps {
   isEdit: boolean;
-  data?: Pick<IQuery, "fetchBoard">;
+  data?: Pick<IQuery, "fetchUseditem">;
 }
 
 export interface ISubmitButtonProps {
@@ -11,8 +10,8 @@ export interface ISubmitButtonProps {
 }
 
 export interface IFormData {
-  price: string;
-  title: string;
+  name: string;
+  price: number;
   contents: string;
   addressDetail: string;
 }

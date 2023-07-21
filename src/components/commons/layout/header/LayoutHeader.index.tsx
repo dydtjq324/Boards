@@ -24,7 +24,6 @@ const LOGOUT_USER = gql`
 
 export default function LayoutHeaderUI(): JSX.Element {
   const { data } = useQueryLoggedIn();
-  console.log(data);
   const { onClickMoveToPage } = useMoveToPage();
 
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);

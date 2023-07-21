@@ -1,22 +1,19 @@
 import { useEffect, useState } from "react";
-import { createBoardMutation } from "../../../commons/hooks/mutations/boards/createBoardMutation";
 import { updateBoardMutation } from "../../../commons/hooks/mutations/boards/updateBoardMutation";
 import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
 import * as S from "./MarketWrite.styles";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
-import type { Address } from "react-daum-postcode";
 import { IUpdateBoardInput } from "../../../../commons/types/generated/types";
 import { MarketWriteProps, IFormData } from "./MarketWrite.types";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./MarketWrite.vaildation";
-import Head from "next/head";
+import { createItemMutation } from "../../../commons/hooks/mutations/markets/createItemMutation";
 
 declare const window: typeof globalThis & {
   kakao: any;
 };
-
 const modules = {
   toolbar: [
     [{ header: [1, 2, false] }],
@@ -34,9 +31,9 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
     mode: "onChange",
   });
   const [updateBoard] = updateBoardMutation();
-  const [createBoard] = createBoardMutation();
+  const [createItem] = createItemMutation();
   const [isActive, setIsActive] = useState(false);
-  const [address, setAddress] = useState("");
+  // const [address, setAddress] = useState("");
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
   const [fileUrls, setFileUrls] = useState(["", "", ""]);
@@ -66,7 +63,7 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
   };
 
   useEffect(() => {
-    const images = props.data?.fetchBoard.images;
+    const images = props.data?.fetchUseditem.images;
     if (images !== undefined && images !== null) setFileUrls([...images]);
   }, [props.data]);
 
@@ -77,30 +74,32 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
   };
 
   const onClickSubmit = async (): Promise<void> => {
-    const { title, contents, addressDetail } = watch();
+    const { contents, price, name, addressDetail } = watch();
     if (formState.isValid) {
       try {
-        const result = await createBoard({
+        const result = await createItem({
           variables: {
-            createBoardInput: {
-              title,
+            createUseditemInput: {
               contents,
-
-              boardAddress: {
-                address,
-                addressDetail,
+              useditemAddress: {
+                lat: Number(lat),
+                lng: Number(lng),
+                addressDetail: addressDetail,
               },
               images: [...fileUrls],
+              name,
+              price: Number(price),
+              remarks: "",
             },
           },
         });
 
-        if (result.data?.createBoard._id === undefined) {
+        if (result.data?.createUseditem._id === undefined) {
           alert("요청에 문제가 있습니다.");
           return;
         }
         alert("게시글 정상등록");
-        void router.push(`/boards/${result.data?.createBoard._id}`);
+        void router.push(`/markets/${result.data?.createUseditem._id}`);
       } catch (error) {
         if (error instanceof Error) alert(error.message);
       }
@@ -108,20 +107,13 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
   };
 
   const onClickUpdate = async (): Promise<void> => {
-    const { title, contents, addressDetail } = watch();
+    const { contents, addressDetail } = watch();
     const currentFiles = JSON.stringify(fileUrls);
-    const defaultFiles = JSON.stringify(props.data?.fetchBoard.images);
+    const defaultFiles = JSON.stringify(props.data?.fetchUseditem.images);
     const isChangedFiles = currentFiles !== defaultFiles;
 
     const updateBoardInput: IUpdateBoardInput = {};
-    if (title !== "") updateBoardInput.title = title;
     if (contents !== "") updateBoardInput.contents = contents;
-    if (address !== "" || addressDetail !== "") {
-      updateBoardInput.boardAddress = {};
-      if (address !== "") updateBoardInput.boardAddress.address = address;
-      if (addressDetail !== "")
-        updateBoardInput.boardAddress.addressDetail = addressDetail;
-    }
     if (isChangedFiles) updateBoardInput.images = fileUrls;
 
     try {
@@ -154,30 +146,30 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
         <S.InputWrapper>
           <S.Label>상품명</S.Label>
           <S.Subject
-            {...register("title")}
+            {...register("name")}
             type="text"
             placeholder="상품명을 작성해주세요."
-            defaultValue={props.data?.fetchBoard.title}
+            defaultValue={props.data?.fetchUseditem.name}
           />
-          <S.Error>{formState.errors.title?.message}</S.Error>
+          <S.Error>{formState.errors.name?.message}</S.Error>
         </S.InputWrapper>
         <S.InputWrapper>
           <S.Label>가격</S.Label>
           <S.Subject
             {...register("price")}
-            type="text"
+            type="number"
             placeholder="금액을 작성해주세요."
-            defaultValue={props.data?.fetchBoard.title}
+            defaultValue={Number(props.data?.fetchUseditem.price)}
           />
-          <S.Error>{formState.errors.title?.message}</S.Error>
+          <S.Error>{formState.errors.price?.message}</S.Error>
         </S.InputWrapper>
         <S.InputWrapper>
-          <S.Label>내용</S.Label>
+          <S.Label>상품설명</S.Label>
           <S.ContentsQuill
             modules={modules}
             placeholder="내용을 작성해주세요."
             onChange={onChageContents}
-            defaultValue={props.data?.fetchBoard.contents}
+            defaultValue={props.data?.fetchUseditem.contents}
           />
 
           <S.Error>{formState.errors.contents?.message}</S.Error>
@@ -209,7 +201,7 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
                 {...register("addressDetail")}
                 placeholder="상세주소"
                 defaultValue={
-                  props.data?.fetchBoard.boardAddress?.addressDetail ?? ""
+                  props.data?.fetchUseditem.useditemAddress?.addressDetail ?? ""
                 }
               />
             </S.AddressDetailContainer>
