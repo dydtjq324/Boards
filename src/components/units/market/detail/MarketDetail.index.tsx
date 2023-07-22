@@ -6,7 +6,15 @@ import Dompurify from "dompurify";
 import { useMoveToPage } from "../../../commons/hooks/custom/useMoveToPage";
 import { useQueryIdChecker } from "../../../commons/hooks/custom/useQueryIdChecker";
 import { MutationDeleteBoard } from "../../../commons/hooks/mutations/boards/deleteBoardMutation";
-import { useQueryFetchItem } from "../../../commons/hooks/queries/markets/useQueryFetchItem";
+import {
+  FETCH_ITEM,
+  useQueryFetchItem,
+} from "../../../commons/hooks/queries/markets/useQueryFetchItem";
+import { useQueryLoggedIn } from "../../../commons/hooks/queries/user/useLoggedIn";
+import { MutationDeleteItem } from "../../../commons/hooks/mutations/markets/deleteItemMutation";
+import { FETCH_USEDITEMS } from "../../../commons/hooks/queries/markets/usequeryfetchUseditems";
+import { PickItem } from "../../../commons/hooks/mutations/markets/pickItemMutation";
+import { useMutationBuySell } from "../../../commons/hooks/mutations/user/createBuysell";
 export default function UsedItemDetailUI(
   props: IBoardDetailUIProps
 ): JSX.Element {
@@ -14,8 +22,12 @@ export default function UsedItemDetailUI(
   const { data } = useQueryFetchItem({ useditemId: String(useditemId) });
   const { onClickMoveToPage } = useMoveToPage();
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
-  // const [deleteBoard] = MutationDeleteBoard();
+  const [deleteItem] = MutationDeleteItem();
+  const [ItemBuySelling] = useMutationBuySell();
+  const { data: logininfo } = useQueryLoggedIn();
   console.log(data);
+  const [pickItem] = PickItem();
+  // useditemId
   // 삭제 모달창 띄우기
   const onClickOpenModal = () => {
     setIsOpenDeleteModal(true);
@@ -24,40 +36,68 @@ export default function UsedItemDetailUI(
     setIsOpenDeleteModal(false);
   };
 
-  //개별 글삭제
-  // const onClickDelete = async (
-  //   event: MouseEvent<HTMLButtonElement>
-  // ): Promise<void> => {
-  //   try {
-  //     await deleteBoard({
-  //       variables: {
-  //         useditemId: useditemId,
-  //       },
-  //       refetchQueries: [
-  //         {
-  //           query: FETCH_BOARDS,
-  //           variables: { page: 1 },
-  //         },
-  //       ],
-  //     });
-  //     alert("삭제되었습니다");
-  //     setIsOpenDeleteModal(false);
-  //     onClickMoveToPage("/boards")();
-  //   } catch (error) {
-  //     if (error instanceof Error) alert(error.message);
-  //   }
-  // };
+  const onClickLike = async () => {
+    await pickItem({
+      variables: { useditemId: useditemId },
+      refetchQueries: [
+        {
+          query: FETCH_ITEM,
+          variables: { useditemId: useditemId },
+        },
+      ],
+    });
+  };
+
+  const onClickDelete = async (e: any): Promise<void> => {
+    try {
+      await deleteItem({
+        variables: {
+          useditemId: useditemId,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_USEDITEMS,
+          },
+        ],
+      });
+      alert("삭제되었습니다");
+      setIsOpenDeleteModal(false);
+      onClickMoveToPage("/markets")();
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
+  };
+
+  const onClickBuySelling = async (e: any): Promise<void> => {
+    try {
+      await ItemBuySelling({
+        variables: {
+          useritemId: useditemId,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_USEDITEMS,
+          },
+        ],
+      });
+      alert("구매성공");
+      onClickMoveToPage("/markets")();
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
+  };
+
   return (
     <>
-      {/* {isOpenDeleteModal && (
+      {isOpenDeleteModal && (
         <S.PasswordModal
           open={true}
-          // onOk={onClickDelete}
+          onOk={onClickDelete}
           onCancel={onClickDeleteModal}
         >
           삭제하시겠습니까
         </S.PasswordModal>
-      )} */}
+      )}
       <S.Wrapper>
         <S.CardWrapper>
           <S.Header>
@@ -71,11 +111,16 @@ export default function UsedItemDetailUI(
               </S.Info>
             </S.AvatarWrapper>
             <S.IconWrapper>
-              <S.LinkIcon src="/images/board/detail/link.png" />
+              <S.Heart rev={undefined} onClick={onClickLike} />{" "}
+              {data?.fetchUseditem.pickedCount}
             </S.IconWrapper>
           </S.Header>
           <S.Body>
             <S.Title>{data?.fetchUseditem.name}</S.Title>
+            <S.MoneyText>
+              <S.Money rev={undefined} />{" "}
+              {data?.fetchUseditem.price?.toLocaleString()} 원
+            </S.MoneyText>
             <S.ImageWrapper>
               {data?.fetchUseditem.images
                 ?.filter((el) => el)
@@ -86,19 +131,35 @@ export default function UsedItemDetailUI(
                   />
                 ))}
             </S.ImageWrapper>
-            {/* <S.Contents
+            <S.Contents
               dangerouslySetInnerHTML={{
                 __html: Dompurify.sanitize(data?.fetchUseditem.contents ?? ""),
               }}
-            ></S.Contents> */}
+            ></S.Contents>
           </S.Body>
         </S.CardWrapper>
         <S.BottomWrapper>
-          <S.Button onClick={onClickMoveToPage("/markets")}>목록으로</S.Button>
-          <S.Button onClick={onClickMoveToPage(`/markets/${useditemId}/edit`)}>
-            수정하기
-          </S.Button>
-          <S.Button onClick={onClickOpenModal}>삭제하기</S.Button>
+          {data?.fetchUseditem.seller?.email ===
+          logininfo?.fetchUserLoggedIn.email ? (
+            <>
+              <S.Button onClick={onClickMoveToPage("/markets")}>
+                목록으로
+              </S.Button>
+              <S.Button
+                onClick={onClickMoveToPage(`/markets/${useditemId}/edit`)}
+              >
+                수정하기
+              </S.Button>
+              <S.Button onClick={onClickOpenModal}>삭제하기</S.Button>
+            </>
+          ) : (
+            <>
+              <S.Button onClick={onClickMoveToPage("/markets")}>
+                목록으로
+              </S.Button>
+              <S.Button onClick={onClickBuySelling}>구매하기</S.Button>
+            </>
+          )}
         </S.BottomWrapper>
       </S.Wrapper>
     </>

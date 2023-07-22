@@ -1,5 +1,11 @@
 import styled from "@emotion/styled";
-import { LikeOutlined, DislikeOutlined } from "@ant-design/icons";
+import {
+  LikeOutlined,
+  DislikeOutlined,
+  MoneyCollectFilled,
+  HeartFilled,
+} from "@ant-design/icons";
+
 import ReactPlayer from "react-player";
 import { Modal } from "antd";
 
@@ -13,7 +19,17 @@ export const Wrapper = styled.div`
   width: 1200px;
   margin: 100px;
 `;
-
+export const Money = styled(MoneyCollectFilled)`
+  font-size: 50px;
+  color: #ffd600;
+  margin-right: 10px;
+`;
+export const Heart = styled(HeartFilled)`
+  font-size: 40px;
+  color: #ffd600;
+  margin-left: 10px;
+  margin-right: 10px;
+`;
 export const CardWrapper = styled.div`
   border: 1px solid black;
   padding-top: 80px;
@@ -62,9 +78,13 @@ export const Body = styled.div`
 `;
 
 export const Title = styled.h1`
-  padding-top: 80px;
+  padding-top: 50px;
 `;
 
+export const MoneyText = styled.div`
+  font-size: 50px;
+  margin: 30px 0;
+`;
 export const Contents = styled.div`
   padding-top: 40px;
   padding-bottom: 120px;
@@ -93,7 +113,10 @@ export const Button = styled.button`
 `;
 
 export const IconWrapper = styled.div`
+  display: flex;
   text-align: center;
+  font-size: 30px;
+  align-items: center;
 `;
 
 export const Youtube = styled(ReactPlayer)`
@@ -136,12 +159,14 @@ export const DislikeCount = styled.div`
 export const LinkIcon = styled.img``;
 
 export const ImageWrapper = styled.div`
+  padding: 30px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 export const Image = styled.img`
-  width: 996px;
+  width: 596px;
   height: 480px;
   margin-bottom: 30px;
 `;

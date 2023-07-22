@@ -34,7 +34,7 @@ export default function SignUpUI(): JSX.Element {
           },
         });
         alert("회원가입 성공");
-        onClickMoveToPage("/boards")();
+        onClickMoveToPage("/login")();
       } catch (error) {
         if (error instanceof Error) alert(error.message);
       }

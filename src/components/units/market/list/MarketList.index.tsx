@@ -1,8 +1,5 @@
-import { getDate } from "../../../../commons/libraries/utils";
-import { useQueryFetchBoards } from "../../../commons/hooks/queries/boards/useQueryFetchBoards";
-import { useQueryFetchBoardsCount } from "../../../commons/hooks/queries/boards/useQueryFetchBoardsCount";
 import { useMoveToPage } from "../../../commons/hooks/custom/useMoveToPage";
-import { useSearchbar } from "../../../commons/hooks/custom/useSearchbar";
+import { useSearchbarItem } from "../../../commons/hooks/custom/useSearchbar";
 import { v4 as uuidv4 } from "uuid";
 import { useQueryfetchUseditemsOfTheBest } from "../../../commons/hooks/queries/markets/useQueryfetchUseditemsOfTheBest";
 import { useQueryFetchUseditems } from "../../../commons/hooks/queries/markets/usequeryfetchUseditems";
@@ -16,8 +13,9 @@ export default function MarketListUI(): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
   const { data: bestdata } = useQueryfetchUseditemsOfTheBest();
   const { data, fetchMore, refetch } = useQueryFetchUseditems();
-
-  console.log(bestdata);
+  const { itemKeyword, onChangeSearchbar } = useSearchbarItem({
+    refetch,
+  });
 
   const onLoadMore = (): void => {
     if (data === undefined) return;
@@ -71,6 +69,7 @@ export default function MarketListUI(): JSX.Element {
         ))}
       </S.BestContainer>
       <S.Footer>
+        <Searchbars01UI onChangeSearchbar={onChangeSearchbar} />
         <S.Button onClick={onClickMoveToPage("/markets/new")}>
           상품 등록하기
         </S.Button>
@@ -92,7 +91,19 @@ export default function MarketListUI(): JSX.Element {
                 <S.ItemImg src="/images/avatar.png" />
               )}
               <S.ItemDetailContainer>
-                <S.ColumnHeaderTitle>{el.name}</S.ColumnHeaderTitle>
+                <S.ColumnHeaderTitle>
+                  {el.name
+                    .replaceAll(itemKeyword, `${SECRET}${itemKeyword}${SECRET}`)
+                    .split(SECRET)
+                    .map((el) => (
+                      <S.TextToken
+                        key={uuidv4()}
+                        isMatched={itemKeyword === el}
+                      >
+                        {el}
+                      </S.TextToken>
+                    ))}
+                </S.ColumnHeaderTitle>
                 <S.ColumnHeaderSubTitle>{el.remarks}</S.ColumnHeaderSubTitle>
                 <S.BestDetailContainer>
                   <S.UserImg src="/images/avatar.png" />

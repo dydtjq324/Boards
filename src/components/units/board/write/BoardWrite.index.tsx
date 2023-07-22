@@ -11,6 +11,8 @@ import { IBoardWriteProps, IFormData } from "./BoardWrite.types";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./BoardWrite.vaildation";
+import { FETCH_BOARD } from "../../../commons/hooks/queries/boards/useQueryFetchBoard";
+import { FETCH_BOARDS } from "../../../commons/hooks/queries/boards/useQueryFetchBoards";
 
 const modules = {
   toolbar: [
@@ -129,6 +131,15 @@ export default function BoardWriteUI(props: IBoardWriteProps): JSX.Element {
           password,
           updateBoardInput,
         },
+        refetchQueries: [
+          {
+            query: FETCH_BOARD,
+            variables: { boardId: router.query.boardId },
+          },
+          {
+            query: FETCH_BOARDS,
+          },
+        ],
       });
 
       if (result.data?.updateBoard._id === undefined) {

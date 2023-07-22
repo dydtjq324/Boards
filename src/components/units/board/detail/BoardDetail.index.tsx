@@ -43,16 +43,16 @@ export default function BoardDetailUI(): JSX.Element {
         refetchQueries: [
           {
             query: FETCH_BOARDS,
-            variables: { page: 1 },
           },
         ],
       });
       alert("삭제되었습니다");
       setIsOpenDeleteModal(false);
-      onClickMoveToPage("/boards")();
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
+
+    onClickMoveToPage("/boards")();
   };
   return (
     <>

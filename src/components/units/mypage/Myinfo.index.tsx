@@ -1,6 +1,7 @@
 declare const window: typeof globalThis & {
   IMP: any;
 };
+import Head from "next/head";
 import {
   FETCH_USER_LOGGED_IN,
   useQueryLoggedIn,
@@ -8,15 +9,16 @@ import {
 import { useState } from "react";
 import { useMutationCreatePoint } from "../../commons/hooks/mutations/user/createPoint";
 import * as S from "./Myinfo.styles";
-import Head from "next/head";
+import { useQueryTransactions } from "../../commons/hooks/queries/user/useTransaction";
 export default function MyPageUI(): JSX.Element {
   const { data } = useQueryLoggedIn();
+  const { data: sellItem } = useQueryTransactions();
   const [pay, setPay] = useState(0);
   const [mutation] = useMutationCreatePoint();
   const onChangePay = (e: any) => {
     setPay(e.target.value);
   };
-
+  console.log(sellItem);
   const onClickPayment = (): void => {
     const IMP = window.IMP; // 생략 가능
     IMP.init("imp49910675"); // 예: imp00000000a

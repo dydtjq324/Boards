@@ -4,7 +4,7 @@ import {
   IQueryFetchUseditemsArgs,
 } from "../../../../../commons/types/generated/types";
 
-export const FETCH_USEDITEM = gql`
+export const FETCH_USEDITEMS = gql`
   query fetchUseditems($page: Int, $search: String) {
     fetchUseditems(page: $page, search: $search) {
       _id
@@ -26,6 +26,6 @@ export const useQueryFetchUseditems = () => {
   const result = useQuery<
     Pick<IQuery, "fetchUseditems">,
     IQueryFetchUseditemsArgs
-  >(FETCH_USEDITEM);
+  >(FETCH_USEDITEMS);
   return result;
 };

@@ -1,11 +1,17 @@
-import { Fragment } from "react";
-import { MenuItem, Wrapper } from "./LayoutNavigation.styles";
+import {
+  MenuItem,
+  MenuItemContainer,
+  ShoppingIcon,
+  SmileIcon,
+  SnippetsIcon,
+  Wrapper,
+} from "./LayoutNavigation.styles";
 import { useMoveToPage } from "../../hooks/custom/useMoveToPage";
 
 const NAVIGATION_MENUS = [
-  { name: "마켓", page: "/markets" },
-  { name: "게시판", page: "/boards" },
-  { name: "마이페이지", page: "/mypage" },
+  { name: "마켓", page: "/markets", icon: <ShoppingIcon rev={undefined} /> },
+  { name: "게시판", page: "/boards", icon: <SnippetsIcon rev={undefined} /> },
+  { name: "마이페이지", page: "/mypage", icon: <SmileIcon rev={undefined} /> },
 ];
 
 export default function LayoutNavigationUI(): JSX.Element {
@@ -13,11 +19,12 @@ export default function LayoutNavigationUI(): JSX.Element {
   return (
     <Wrapper>
       {NAVIGATION_MENUS.map((el) => (
-        <Fragment key={el.page}>
+        <MenuItemContainer key={el.page}>
           <MenuItem id={el.page} onClick={onClickMoveToPage(`${el.page}`)}>
+            {el?.icon}
             {el.name}
           </MenuItem>
-        </Fragment>
+        </MenuItemContainer>
       ))}
     </Wrapper>
   );

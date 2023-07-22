@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+
 export const Wrapper = styled.div`
   height: 150px;
   display: flex;
@@ -11,13 +12,16 @@ export const InnerWrapper = styled.div`
   width: 1200px;
   display: flex;
   flex-direction: row;
+
+  font-family: "myFont";
   justify-content: space-between;
   align-items: center;
-  font-size: 18px;
+  font-size: 26px;
 `;
 
 export const InnerLogo = styled.div`
-  font-size: 30px;
+  font-family: "myFont";
+  font-size: 35px;
   font-weight: bold;
   font-style: italic;
   color: black;
@@ -25,10 +29,12 @@ export const InnerLogo = styled.div`
 `;
 
 export const InnerButton = styled.div`
-  font-size: 22px;
+  font-size: 27px;
   margin: 15px;
   color: black;
   cursor: pointer;
+
+  font-family: "myFont_semiBold";
 `;
 
 export const ButtonContainer = styled.div`
@@ -38,7 +44,7 @@ export const ButtonContainer = styled.div`
 
 export const Avatar = styled.img`
   width: 40px;
-  margin-right: 5px;
+  margin-right: 10px;
 `;
 
 export const ButtonWrapper = styled.div`

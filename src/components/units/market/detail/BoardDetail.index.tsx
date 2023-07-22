@@ -30,7 +30,6 @@ export default function BoardDetailUI(props: IBoardDetailUIProps): JSX.Element {
   const onClickDeleteModal = () => {
     setIsOpenDeleteModal(false);
   };
-
   //개별 글삭제
   const onClickDelete = async (
     event: MouseEvent<HTMLButtonElement>

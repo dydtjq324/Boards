@@ -109,6 +109,7 @@ export const PencilIcon = styled.img``;
 export const Button = styled.button`
   width: 250px;
   height: 80px;
+  margin-left: 30px;
   background-color: #c4deff;
   border: none;
   border-radius: 15px;
@@ -137,10 +138,12 @@ export const BestTitle = styled.h1`
   width: 200px;
   color: black;
   padding: 10px 5px;
-  background-color: #c4deff;
+  background-color: #cefbc9;
   text-align: center;
   margin-top: 20px;
   border-radius: 20px;
+  opacity: 0.7;
+  font-family: "myFont";
 `;
 export const BestContainer = styled.div`
   display: flex;

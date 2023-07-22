@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
-import { updateBoardMutation } from "../../../commons/hooks/mutations/boards/updateBoardMutation";
 import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
 import * as S from "./MarketWrite.styles";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
-import { IUpdateBoardInput } from "../../../../commons/types/generated/types";
+import { IUpdateUseditemInput } from "../../../../commons/types/generated/types";
 import { MarketWriteProps, IFormData } from "./MarketWrite.types";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./MarketWrite.vaildation";
 import { createItemMutation } from "../../../commons/hooks/mutations/markets/createItemMutation";
+import { updateItemMutation } from "../../../commons/hooks/mutations/markets/updateItemMutation";
+import { FETCH_ITEM } from "../../../commons/hooks/queries/markets/useQueryFetchItem";
+import { FETCH_USEDITEMS } from "../../../commons/hooks/queries/markets/usequeryfetchUseditems";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -30,7 +32,7 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-  const [updateBoard] = updateBoardMutation();
+  const [updateItem] = updateItemMutation();
   const [createItem] = createItemMutation();
   const [isActive, setIsActive] = useState(false);
   // const [address, setAddress] = useState("");
@@ -107,24 +109,34 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
   };
 
   const onClickUpdate = async (): Promise<void> => {
-    const { contents, addressDetail } = watch();
+    const { contents, name, price, addressDetail } = watch();
     const currentFiles = JSON.stringify(fileUrls);
     const defaultFiles = JSON.stringify(props.data?.fetchUseditem.images);
     const isChangedFiles = currentFiles !== defaultFiles;
+    const updateUseditemInput: IUpdateUseditemInput = {};
+    if (contents !== "") updateUseditemInput.contents = contents;
+    if (isChangedFiles) updateUseditemInput.images = fileUrls;
 
-    const updateBoardInput: IUpdateBoardInput = {};
-    if (contents !== "") updateBoardInput.contents = contents;
-    if (isChangedFiles) updateBoardInput.images = fileUrls;
-
+    if (name !== "") updateUseditemInput.name = name;
+    if (price !== Number("")) updateUseditemInput.price = Number(price);
     try {
-      const result = await updateBoard({
+      const result = await updateItem({
         variables: {
-          boardId: String(router.query.boardId),
-          updateBoardInput,
+          useditemId: String(router.query.useditemId),
+          updateUseditemInput,
         },
+        refetchQueries: [
+          {
+            query: FETCH_ITEM,
+            variables: { useditemId: router.query.useditemId },
+          },
+          {
+            query: FETCH_USEDITEMS,
+          },
+        ],
       });
       alert("수정이 완료되었습니다");
-      void router.push(`/boards/${result.data?.updateBoard._id}`);
+      void router.push(`/markets/${result.data?.updateUseditem._id}`);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
@@ -159,8 +171,13 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
             {...register("price")}
             type="number"
             placeholder="금액을 작성해주세요."
-            defaultValue={Number(props.data?.fetchUseditem.price)}
+            defaultValue={
+              props.data?.fetchUseditem.price
+                ? String(props.data?.fetchUseditem.price)
+                : ""
+            } // price 값이 있을 때만 숫자를 문자열로 변환
           />
+
           <S.Error>{formState.errors.price?.message}</S.Error>
         </S.InputWrapper>
         <S.InputWrapper>

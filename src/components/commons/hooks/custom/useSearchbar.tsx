@@ -30,3 +30,21 @@ export const useSearchbar = (args: IUseSearchbarArgs) => {
     onChangeSearchbar,
   };
 };
+
+export const useSearchbarItem = (args: any) => {
+  const [itemKeyword, setitemKKeyword] = useState("");
+
+  const getDebounce = _.debounce((value: string) => {
+    void args.refetch({ search: value, page: 1 });
+    setitemKKeyword(value);
+  }, 500);
+
+  const onChangeSearchbar = (event: ChangeEvent<HTMLInputElement>) => {
+    getDebounce(event.target.value);
+  };
+
+  return {
+    itemKeyword,
+    onChangeSearchbar,
+  };
+};
