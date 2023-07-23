@@ -50,7 +50,8 @@ export const LoginBtn = styled.div`
   width: 500px;
   height: 70px;
   font-size: 20px;
-  background-color: #fee500;
+  background-color: #cefbc9;
+
   border: none;
   outline: none;
   border-radius: 10px;

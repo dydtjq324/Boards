@@ -6,6 +6,7 @@ import { useQueryFetchUseditems } from "../../../commons/hooks/queries/markets/u
 import * as S from "./MarketList.styles";
 import InfiniteScroll from "react-infinite-scroller";
 import Searchbars01UI from "../../../commons/searchbars/01/Searchbars01.index";
+import MarketBest from "../best/MarketList.index";
 
 const SECRET = "@#$%";
 
@@ -40,34 +41,7 @@ export default function MarketListUI(): JSX.Element {
       <S.BestTitleContainer>
         <S.BestTitle>BEST</S.BestTitle>
       </S.BestTitleContainer>
-      <S.BestContainer>
-        {bestdata?.fetchUseditemsOfTheBest.map((el) => (
-          <S.BestItemCoinTainer
-            key={el._id}
-            onClick={onClickMoveToPage(`/markets/${el._id}`)}
-          >
-            {el.images && el.images[0] && (
-              <S.BestItemimg
-                src={`https://storage.googleapis.com/${el.images[0]}`}
-              />
-            )}
-            <S.BestItemContent>
-              <S.BestItemTitle>
-                {el.name.length > 8
-                  ? el.name.substring(0, 12) + "..."
-                  : el.name}
-              </S.BestItemTitle>
-              <S.BestItemUser>{el.price?.toLocaleString()}원</S.BestItemUser>
-              <S.BestDetailContainer>
-                <S.UserImg src="/images/avatar.png" />
-                {el.seller?.name}
-                <S.Heart rev={undefined} />
-                {el.pickedCount}
-              </S.BestDetailContainer>
-            </S.BestItemContent>
-          </S.BestItemCoinTainer>
-        ))}
-      </S.BestContainer>
+      <MarketBest />
       <S.Footer>
         <Searchbars01UI onChangeSearchbar={onChangeSearchbar} />
         <S.Button onClick={onClickMoveToPage("/markets/new")}>

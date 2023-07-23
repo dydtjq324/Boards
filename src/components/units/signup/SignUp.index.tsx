@@ -69,7 +69,7 @@ export default function SignUpUI(): JSX.Element {
         </S.myForm>
         <S.LoginBtn
           onClick={onClickSignUp}
-          style={{ opacity: formState.isValid ? "1" : "0.3" }}
+          style={{ opacity: formState.isValid ? "1" : "0.6" }}
         >
           가입하기
         </S.LoginBtn>

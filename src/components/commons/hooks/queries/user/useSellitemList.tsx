@@ -5,6 +5,11 @@ const FETCH_MYPOINT = gql`
   query fetchPointTransactionsOfSelling {
     fetchPointTransactionsOfSelling {
       _id
+      amount
+      balance
+      status
+      statusDetail
+      createdAt
     }
   }
 `;

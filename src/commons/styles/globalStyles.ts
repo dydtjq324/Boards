@@ -13,5 +13,9 @@ export const globalStyles = css`
       font-family: "myFont_semiBold";
       src: url("/fonts/Pretendard-SemiBold.ttf");
     }
+    @font-face {
+      font-family: "myFont_light";
+      src: url("/fonts/Pretendard-Light.ttf");
+    }
   }
 `;

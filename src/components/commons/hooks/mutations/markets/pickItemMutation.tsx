@@ -12,7 +12,7 @@ export const PICK_ITEM = gql`
 
 export const PickItem = () => {
   const mutation = useMutation<
-    Pick<IMutation, "likeBoard">,
+    Pick<IMutation, "toggleUseditemPick">,
     IMutationToggleUseditemPickArgs
   >(PICK_ITEM);
 

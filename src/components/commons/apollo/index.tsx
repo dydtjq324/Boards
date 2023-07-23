@@ -21,11 +21,9 @@ interface IApolloSettingProps {
 }
 export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-  const aaa = useRecoilValueLoadable(restoreAccessTokenLoadable);
   useEffect(() => {
     // const result = localStorage.getItem("accessToken"); 기존방식
     // 리프레시 토큰 방식
-
     void getAccessToken().then((newAccessToken) => {
       setAccessToken(newAccessToken ?? "");
     });

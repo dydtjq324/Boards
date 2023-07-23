@@ -71,7 +71,7 @@ export default function LoginUI(): JSX.Element {
         </S.myForm>
         <S.LoginBtn
           onClick={onClickLogin}
-          style={{ opacity: formState.isValid ? "1" : "0.3" }}
+          style={{ opacity: formState.isValid ? "1" : "0.6" }}
         >
           로그인
         </S.LoginBtn>

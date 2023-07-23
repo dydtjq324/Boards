@@ -60,7 +60,8 @@ export const LoginBtn = styled.div`
   width: 500px;
   height: 70px;
   font-size: 20px;
-  background-color: #fee500;
+  background-color: #cefbc9;
+  opacity: 0.7;
   border: none;
   outline: none;
   border-radius: 10px;
@@ -75,7 +76,7 @@ export const SigUpnBtn = styled.div`
   width: 500px;
   height: 70px;
   font-size: 20px;
-  background-color: #fee500;
+  background-color: #cefbc9;
   border: none;
   outline: none;
   cursor: pointer;

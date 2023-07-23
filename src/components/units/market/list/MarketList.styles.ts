@@ -33,6 +33,7 @@ export const BoardPasswordModal = styled(Modal)``;
 export const Wrapper = styled.div`
   width: 1200px;
   margin-top: 30px;
+  font-family: "myFont_light";
 `;
 
 export const TableTop = styled.div`
@@ -48,10 +49,11 @@ export const Row = styled.div`
   display: flex;
   flex-direction: row;
   height: 170px;
-  /* line-height: 20px; */
-  border-bottom: 1px solid gray;
+  border-bottom: 2px solid #eaeaea;
   :hover {
-    color: blue;
+    color: #2f9d27;
+
+    transform: scale(1.1);
   }
 `;
 
@@ -99,8 +101,7 @@ export const Footer = styled.div`
   flex-direction: row;
   justify-content: end;
   padding-top: 50px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid grey;
+  border-bottom: 2px solid #eaeaea;
   padding: 20px;
 `;
 
@@ -110,7 +111,9 @@ export const Button = styled.button`
   width: 250px;
   height: 80px;
   margin-left: 30px;
-  background-color: #c4deff;
+  background-color: #47c83e;
+  opacity: 0.7;
+  font-family: "myFont_semiBold";
   border: none;
   border-radius: 15px;
   display: flex;
@@ -121,13 +124,12 @@ export const Button = styled.button`
   font-size: 25px;
   font-weight: bold;
   :hover {
-    font-size: 24px;
-    color: black;
+    transform: scale(1.1);
   }
 `;
 
 export const TextToken = styled.span`
-  color: ${(props: ITextTokenProps) => (props.isMatched ? "red" : "black")};
+  color: ${(props: ITextTokenProps) => (props.isMatched ? "#4375DB" : "black")};
 `;
 export const BestTitleContainer = styled.div`
   display: flex;
@@ -140,7 +142,6 @@ export const BestTitle = styled.h1`
   padding: 10px 5px;
   background-color: #cefbc9;
   text-align: center;
-  margin-top: 20px;
   border-radius: 20px;
   opacity: 0.7;
   font-family: "myFont";
@@ -157,12 +158,15 @@ export const BestItemCoinTainer = styled.div`
   width: 270px;
   height: 340px;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px gray;
   display: flex;
   flex-direction: column;
   cursor: pointer;
+
+  box-shadow: 0px 0px 10px gray;
   :hover {
     transform: scale(1.1);
+
+    box-shadow: 0px 0px 30px #2f9d27;
   }
 `;
 
@@ -171,7 +175,7 @@ export const BestItemimg = styled.img`
   height: 230px;
   margin-bottom: 10px;
   border-radius: 10px;
-  padding: 10px;
+  /* padding: 10px; */
 `;
 
 export const BestItemContent = styled.div`
@@ -182,18 +186,10 @@ export const BestItemContent = styled.div`
   justify-content: space-around;
 `;
 export const BestItemTitle = styled.div`
-  font-size: 23px;
+  font-size: 25px;
   font-weight: bold;
 `;
 export const BestItemUser = styled.div`
   font-size: 18px;
   margin: 7px 0;
-`;
-
-export const ScrollContainer = styled.div`
-  padding-right: 20px;
-  height: 1400px;
-  overflow-y: scroll;
-  /* 필요한 경우 가로 스크롤바를 추가하려면 아래와 같이 설정할 수 있습니다. */
-  /* overflow-x: auto; */
 `;

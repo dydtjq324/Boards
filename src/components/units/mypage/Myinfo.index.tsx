@@ -10,18 +10,31 @@ import { useState } from "react";
 import { useMutationCreatePoint } from "../../commons/hooks/mutations/user/createPoint";
 import * as S from "./Myinfo.styles";
 import { useQueryTransactions } from "../../commons/hooks/queries/user/useTransaction";
+import { getDate } from "../../../commons/libraries/utils";
+import { useQuerysellItem } from "../../commons/hooks/queries/user/useSellitemList";
+import { useQueryBuyItem } from "../../commons/hooks/queries/user/useBuyItemList";
+import { useQueryLoding } from "../../commons/hooks/queries/user/useLodingList";
 export default function MyPageUI(): JSX.Element {
   const { data } = useQueryLoggedIn();
-  const { data: sellItem } = useQueryTransactions();
-  const [pay, setPay] = useState(0);
+  const { data: TransactionsList } = useQueryTransactions();
+  const { data: SellList } = useQuerysellItem();
+  const { data: BuyList } = useQueryBuyItem();
+  const { data: LoadList } = useQueryLoding();
+
+  const [activeTab, setActiveTab] = useState("tab1");
+  const [pay, setPay] = useState("");
   const [mutation] = useMutationCreatePoint();
   const onChangePay = (e: any) => {
     setPay(e.target.value);
   };
-  console.log(sellItem);
+  console.log(TransactionsList);
+
+  const handleTabClick = (tab: any) => {
+    setActiveTab(tab);
+  };
   const onClickPayment = (): void => {
-    const IMP = window.IMP; // 생략 가능
-    IMP.init("imp49910675"); // 예: imp00000000a
+    const IMP = window.IMP;
+    IMP.init("imp49910675");
     IMP.request_pay(
       {
         pg: "kakaopay",
@@ -47,7 +60,7 @@ export default function MyPageUI(): JSX.Element {
       }
     );
 
-    setPay((pre) => 0);
+    setPay((pre) => "");
   };
 
   return (
@@ -55,12 +68,133 @@ export default function MyPageUI(): JSX.Element {
       <Head>
         <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
       </Head>
-      <S.Title>MYPAGE</S.Title>
-      <S.Avatar src="/images/avatar.png" />
-      <S.Title>{data?.fetchUserLoggedIn.name}</S.Title>
-      <S.MyPoint>{data?.fetchUserLoggedIn.userPoint?.amount} 포인트</S.MyPoint>
-      <button onClick={onClickPayment}>결제하기</button>
-      <input type="number" onChange={onChangePay} value={pay} />
+      <S.Wrapper>
+        <S.MypageTitleContainer>
+          <S.MypageTitle
+            onClick={() => handleTabClick("tab1")}
+            style={{
+              backgroundColor: activeTab === "tab1" ? "#47c83e" : "#cefbc9",
+            }}
+          >
+            전체내역
+          </S.MypageTitle>
+          <S.MypageTitle
+            onClick={() => handleTabClick("tab2")}
+            style={{
+              backgroundColor: activeTab === "tab2" ? "#47c83e" : "#cefbc9",
+            }}
+          >
+            충전내역
+          </S.MypageTitle>
+          <S.MypageTitle
+            onClick={() => handleTabClick("tab3")}
+            style={{
+              backgroundColor: activeTab === "tab3" ? "#47c83e" : "#cefbc9",
+            }}
+          >
+            구매내역
+          </S.MypageTitle>
+          <S.MypageTitle
+            onClick={() => handleTabClick("tab4")}
+            style={{
+              backgroundColor: activeTab === "tab4" ? "#47c83e" : "#cefbc9",
+            }}
+          >
+            판매내역
+          </S.MypageTitle>
+        </S.MypageTitleContainer>
+        <S.MypageDivider>
+          <S.MypageContainer>
+            <S.Title>MYPAGE</S.Title>
+            <S.Avatar src="/images/avatar.png" />
+            <S.Title>{data?.fetchUserLoggedIn.name}</S.Title>
+            <S.MyPoint>
+              {data?.fetchUserLoggedIn.userPoint?.amount.toLocaleString()} 원
+            </S.MyPoint>
+
+            <S.InputMoney
+              type="number"
+              onChange={onChangePay}
+              value={pay}
+              placeholder="금액입력"
+            />
+
+            <S.Button onClick={onClickPayment}>충전하기</S.Button>
+          </S.MypageContainer>
+          <S.TransactionsList>
+            <S.Row>
+              <S.ColumnHeaderBasic>상태</S.ColumnHeaderBasic>
+              <S.ColumnHeaderTitle>금액</S.ColumnHeaderTitle>
+              <S.ColumnHeaderBasic>잔액</S.ColumnHeaderBasic>
+              <S.ColumnHeaderBasic>날짜</S.ColumnHeaderBasic>
+            </S.Row>
+
+            {activeTab === "tab1" && (
+              <>
+                {TransactionsList?.fetchPointTransactions.map((el) => (
+                  <S.Row key={el._id}>
+                    <S.ColumnBasic>{el.status}</S.ColumnBasic>
+                    <S.ColumnTitle>
+                      {el.amount?.toLocaleString()}원
+                    </S.ColumnTitle>
+                    <S.ColumnBasic>
+                      {el.balance?.toLocaleString()}원
+                    </S.ColumnBasic>
+                    <S.ColumnBasic>{getDate(el.createdAt)}</S.ColumnBasic>
+                  </S.Row>
+                ))}
+              </>
+            )}
+
+            {activeTab === "tab2" && (
+              <>
+                {LoadList?.fetchPointTransactionsOfLoading.map((el) => (
+                  <S.Row key={el._id}>
+                    <S.ColumnBasic>{el.status}</S.ColumnBasic>
+                    <S.ColumnTitle>
+                      {el.amount?.toLocaleString()}원
+                    </S.ColumnTitle>
+                    <S.ColumnBasic>
+                      {el.balance?.toLocaleString()}원
+                    </S.ColumnBasic>
+                    <S.ColumnBasic>{getDate(el.createdAt)}</S.ColumnBasic>
+                  </S.Row>
+                ))}
+              </>
+            )}
+            {activeTab === "tab3" && (
+              <>
+                {SellList?.fetchPointTransactionsOfSelling.map((el) => (
+                  <S.Row key={el._id}>
+                    <S.ColumnBasic>{el.status}</S.ColumnBasic>
+                    <S.ColumnTitle>{el.amount?.toLocaleString()}</S.ColumnTitle>
+                    <S.ColumnBasic>
+                      {el.balance?.toLocaleString()}원
+                    </S.ColumnBasic>
+                    <S.ColumnBasic>{getDate(el.createdAt)}원</S.ColumnBasic>
+                  </S.Row>
+                ))}
+              </>
+            )}
+            {activeTab === "tab4" && (
+              <>
+                {BuyList?.fetchPointTransactionsOfBuying.map((el) => (
+                  <S.Row key={el._id}>
+                    <S.ColumnBasic>{el.status}</S.ColumnBasic>
+                    <S.ColumnTitle>
+                      {el.amount?.toLocaleString()}원
+                    </S.ColumnTitle>
+                    <S.ColumnBasic>
+                      {el.balance?.toLocaleString()}원
+                    </S.ColumnBasic>
+                    <S.ColumnBasic>{getDate(el.createdAt)}</S.ColumnBasic>
+                  </S.Row>
+                ))}
+              </>
+            )}
+          </S.TransactionsList>
+        </S.MypageDivider>
+      </S.Wrapper>
     </>
   );
 }

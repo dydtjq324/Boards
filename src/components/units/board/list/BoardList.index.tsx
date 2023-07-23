@@ -31,7 +31,9 @@ export default function BoardListUI(): JSX.Element {
 
   return (
     <S.Wrapper>
-      <S.BestTitle>베스트 게시물</S.BestTitle>
+      <S.BestTitleContainer>
+        <S.BestTitle>BEST</S.BestTitle>
+      </S.BestTitleContainer>
       <S.BestContainer>
         {bestdata?.fetchBoardsOfTheBest.map((el) => (
           <S.BestItemCoinTainer

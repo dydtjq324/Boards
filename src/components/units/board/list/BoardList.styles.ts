@@ -20,6 +20,8 @@ export const BoardPasswordModal = styled(Modal)``;
 export const Wrapper = styled.div`
   width: 1200px;
   margin-top: 30px;
+
+  font-family: "myFont_light";
 `;
 
 export const TableTop = styled.div`
@@ -34,12 +36,15 @@ export const TableBottom = styled.div`
 export const Row = styled.div`
   display: flex;
   flex-direction: row;
-  height: 52px;
+  align-items: center;
+  height: 72px;
   line-height: 52px;
   border-bottom: 1px solid gray;
 
   :hover {
-    color: blue;
+    transform: scale(1.1);
+
+    box-shadow: 0px 0px 30px #2f9d27;
   }
 `;
 
@@ -87,7 +92,9 @@ export const PencilIcon = styled.img``;
 export const Button = styled.button`
   width: 200px;
   height: 60px;
-  background-color: #fee500;
+
+  background-color: #47c83e;
+  opacity: 0.7;
   border: none;
   border-radius: 15px;
   display: flex;
@@ -98,41 +105,56 @@ export const Button = styled.button`
   font-size: 20px;
   font-weight: bold;
   :hover {
-    transform: scale(1.3);
+    transform: scale(1.1);
   }
 `;
 
 export const TextToken = styled.span`
   color: ${(props: ITextTokenProps) => (props.isMatched ? "red" : "black")};
 `;
+export const BestTitleContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 export const BestTitle = styled.h1`
+  border: none;
+  width: 200px;
+  color: black;
+  padding: 10px 5px;
   text-align: center;
-  margin-bottom: 15px;
+  border-radius: 20px;
+  background-color: #cefbc9;
+  opacity: 0.7;
+  font-family: "myFont";
 `;
 export const BestContainer = styled.div`
   display: flex;
   margin: 20px 0;
   justify-content: space-around;
   width: 1200px;
-  height: 240px;
+  height: 340px;
 `;
 
 export const BestItemCoinTainer = styled.div`
-  width: 250px;
-  height: 230px;
+  margin-top: 40px;
+  width: 260px;
+  height: 280px;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px gray;
   display: flex;
   flex-direction: column;
   cursor: pointer;
+
+  box-shadow: 0px 0px 10px gray;
   :hover {
     transform: scale(1.1);
+
+    box-shadow: 0px 0px 30px #2f9d27;
   }
 `;
 
 export const BestItemimg = styled.img`
-  width: 250px;
-  height: 120px;
+  width: 260px;
+  height: 160px;
   border-radius: 10px;
 `;
 
@@ -147,8 +169,8 @@ export const BestItemContent = styled.div`
 export const BestItemTitle = styled.div`
   margin-top: 5px;
   margin: 0px 5px;
-  font-size: 25px;
-  font-weight: bold;
+  font-size: 27px;
+  font-weight: 900;
 `;
 export const BestItemUser = styled.div`
   display: flex;

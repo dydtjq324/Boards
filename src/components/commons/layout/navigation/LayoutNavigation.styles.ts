@@ -49,15 +49,15 @@ export const MenuItem = styled.div`
   padding: 10px 10px;
   text-align: center;
   width: 180px;
-  border: 2px solid gray;
+  border: 2px solid #d5d5d5;
   border-radius: 20px;
   color: grey;
   cursor: pointer;
   margin: 0 90px;
   font-family: "myFont_semiBold";
   :hover {
-    color: navy;
-    font-size: 27px;
+    color: #2f9d27;
+    font-size: 25px;
   }
 `;
 

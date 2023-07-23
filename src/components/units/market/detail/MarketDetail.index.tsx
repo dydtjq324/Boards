@@ -15,9 +15,11 @@ import { MutationDeleteItem } from "../../../commons/hooks/mutations/markets/del
 import { FETCH_USEDITEMS } from "../../../commons/hooks/queries/markets/usequeryfetchUseditems";
 import { PickItem } from "../../../commons/hooks/mutations/markets/pickItemMutation";
 import { useMutationBuySell } from "../../../commons/hooks/mutations/user/createBuysell";
+import { useAuth } from "../../../commons/hooks/custom/useAuth";
 export default function UsedItemDetailUI(
   props: IBoardDetailUIProps
 ): JSX.Element {
+  useAuth();
   const { id: useditemId } = useQueryIdChecker("useditemId");
   const { data } = useQueryFetchItem({ useditemId: String(useditemId) });
   const { onClickMoveToPage } = useMoveToPage();
@@ -27,7 +29,7 @@ export default function UsedItemDetailUI(
   const { data: logininfo } = useQueryLoggedIn();
   console.log(data);
   const [pickItem] = PickItem();
-  // useditemId
+
   // 삭제 모달창 띄우기
   const onClickOpenModal = () => {
     setIsOpenDeleteModal(true);
@@ -111,7 +113,7 @@ export default function UsedItemDetailUI(
               </S.Info>
             </S.AvatarWrapper>
             <S.IconWrapper>
-              <S.Heart rev={undefined} onClick={onClickLike} />{" "}
+              <S.Heart rev={undefined} onClick={onClickLike} />
               {data?.fetchUseditem.pickedCount}
             </S.IconWrapper>
           </S.Header>

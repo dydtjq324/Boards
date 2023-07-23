@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  height: 150px;
+  height: 110px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -29,12 +29,15 @@ export const InnerLogo = styled.div`
 `;
 
 export const InnerButton = styled.div`
-  font-size: 27px;
+  font-size: 22px;
   margin: 15px;
   color: black;
   cursor: pointer;
 
   font-family: "myFont_semiBold";
+  :hover {
+    color: #47c83e;
+  }
 `;
 
 export const ButtonContainer = styled.div`
