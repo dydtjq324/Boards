@@ -4,7 +4,7 @@ import * as S from "./MarketWrite.styles";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/router";
 import { IUpdateUseditemInput } from "../../../../commons/types/generated/types";
-import { MarketWriteProps, IFormData } from "./MarketWrite.types";
+import { MarketWriteProps } from "./MarketWrite.types";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./MarketWrite.vaildation";
@@ -28,7 +28,7 @@ const modules = {
 };
 export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
   const router = useRouter();
-  const { register, formState, watch, setValue, trigger } = useForm<IFormData>({
+  const { register, formState, watch, setValue, trigger } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });

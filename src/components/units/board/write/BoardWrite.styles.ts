@@ -56,6 +56,7 @@ export const Label = styled.div`
 
 export const InputWrapper = styled.div`
   padding-top: 40px;
+  margin-bottom: 30px;
 `;
 
 export const Subject = styled.input`
@@ -116,7 +117,8 @@ export const Youtube = styled.input`
 
 export const ImageWrapper = styled.div`
   width: 996px;
-  padding-top: 40px;
+  padding-top: 30px;
+  margin-bottom: 50px;
 `;
 
 export const ImageBox = styled.div`
@@ -169,14 +171,20 @@ export const CancelButton = styled.button`
 `;
 
 export const SubmitButton = styled.button`
-  width: 179px;
-  height: 52px;
+  width: 180px;
+  height: 60px;
+  margin-left: 30px;
+  background-color: #505957;
+  color: white;
+  font-family: "myFont_semiBold";
   border: none;
-  font-size: 16px;
-  font-weight: 500;
-  margin-left: 12px;
-  margin-right: 12px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
   cursor: pointer;
+  font-size: 22px;
 
   background-color: ${(props: ISubmitButtonProps) =>
     props.isActive ? "yellow" : "none"};

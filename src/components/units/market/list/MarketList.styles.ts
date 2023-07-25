@@ -13,14 +13,15 @@ export const UserImg = styled.img`
 `;
 
 export const Money = styled(MoneyCollectFilled)`
-  font-size: 35px;
+  font-size: 25px;
   color: #ffd600;
   margin-right: 10px;
+  margin-top: 5px;
 `;
 
 export const Heart = styled(HeartFilled)`
   font-size: 24px;
-  color: #ffd600;
+  color: red;
   margin-left: 10px;
   margin-right: 10px;
 `;
@@ -31,7 +32,7 @@ export const LikeIcon = styled(LikeFilled)`
 `;
 export const BoardPasswordModal = styled(Modal)``;
 export const Wrapper = styled.div`
-  width: 1200px;
+  width: 70%;
   margin-top: 30px;
   font-family: "myFont_light";
 `;
@@ -52,8 +53,6 @@ export const Row = styled.div`
   border-bottom: 2px solid #eaeaea;
   :hover {
     color: #2f9d27;
-
-    transform: scale(1.1);
   }
 `;
 
@@ -65,9 +64,9 @@ export const ItemImg = styled.img`
 
 export const ColumnHeaderBasic = styled.div`
   display: flex;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
-  width: 20%;
+  width: 25%;
   text-align: center;
   margin-top: 60px;
 `;
@@ -109,12 +108,13 @@ export const PencilIcon = styled.img``;
 
 export const Button = styled.button`
   width: 250px;
-  height: 80px;
+  height: 60px;
   margin-left: 30px;
-  background-color: #47c83e;
-  opacity: 0.7;
-  font-family: "myFont_semiBold";
-  border: none;
+  /* background-color: #47c83e; */
+  /* opacity: 0.7; */
+  font-family: "myFont_light";
+  /* border: none; */
+
   border-radius: 15px;
   display: flex;
   flex-direction: row;
@@ -122,7 +122,6 @@ export const Button = styled.button`
   align-items: center;
   cursor: pointer;
   font-size: 25px;
-  font-weight: bold;
   :hover {
     transform: scale(1.1);
   }
@@ -140,10 +139,7 @@ export const BestTitle = styled.h1`
   width: 200px;
   color: black;
   padding: 10px 5px;
-  background-color: #cefbc9;
   text-align: center;
-  border-radius: 20px;
-  opacity: 0.7;
   font-family: "myFont";
 `;
 export const BestContainer = styled.div`

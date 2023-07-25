@@ -10,7 +10,7 @@ export const PasswordInput = styled.input`
   margin-top: 10px;
 `;
 export const Wrapper = styled.div`
-  width: 1200px;
+  width: 70%;
   margin: 100px;
 `;
 
@@ -79,19 +79,21 @@ export const BottomWrapper = styled.div`
 export const a = styled.link``;
 
 export const Button = styled.button`
-  width: 179px;
-  height: 45px;
-  background-color: white;
-  border: 1px solid gray;
-  margin: 0px 12px;
+  width: 180px;
+  height: 60px;
+  margin-left: 30px;
+  background-color: #505957;
+  color: white;
+  font-family: "myFont_semiBold";
+  border: none;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
   cursor: pointer;
-
-  :hover {
-    background-color: gold;
-    border-color: white;
-  }
+  font-size: 22px;
 `;
-
 export const IconWrapper = styled.div`
   text-align: center;
 `;
@@ -138,10 +140,11 @@ export const LinkIcon = styled.img``;
 export const ImageWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 export const Image = styled.img`
-  width: 996px;
-  height: 480px;
-  margin-bottom: 30px;
+  margin-top: 50px;
+  width: 486px;
+  height: 240px;
 `;

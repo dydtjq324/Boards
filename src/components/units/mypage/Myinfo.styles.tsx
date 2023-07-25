@@ -165,18 +165,25 @@ export const Row = styled.div`
   height: 62px;
   line-height: 52px;
   border-bottom: 1px solid gray;
-
   :hover {
-    transform: scale(1.1);
-
-    box-shadow: 0px 0px 30px #2f9d27;
+    box-shadow: 0px 0px 10px #2f9d27;
   }
+`;
+export const Row_Title = styled.div`
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  height: 62px;
+  line-height: 52px;
+  border-bottom: 1px solid gray;
+
+  background-color: #eaeaea;
+  opacity: 0.5;
 `;
 
 export const ColumnHeaderBasic = styled.div`
   font-size: 20px;
   font-weight: bold;
-  color: navy;
   width: 20%;
   text-align: center;
 `;
@@ -184,7 +191,6 @@ export const ColumnHeaderBasic = styled.div`
 export const ColumnHeaderTitle = styled.div`
   font-size: 20px;
   font-weight: bold;
-  color: navy;
   width: 50%;
   text-align: center;
 `;
@@ -200,7 +206,7 @@ export const ColumnTitle = styled.div`
   cursor: pointer;
 
   :hover {
-    color: blue;
+    color: #47c83e;
   }
 `;
 export const MypageContainer = styled.div`

@@ -21,7 +21,7 @@ export const InnerWrapper = styled.div`
 
 export const InnerLogo = styled.div`
   font-family: "myFont";
-  font-size: 35px;
+  font-size: 30px;
   font-weight: bold;
   font-style: italic;
   color: black;
@@ -29,7 +29,7 @@ export const InnerLogo = styled.div`
 `;
 
 export const InnerButton = styled.div`
-  font-size: 22px;
+  font-size: 18px;
   margin: 15px;
   color: black;
   cursor: pointer;
@@ -46,7 +46,7 @@ export const ButtonContainer = styled.div`
 `;
 
 export const Avatar = styled.img`
-  width: 40px;
+  width: 30px;
   margin-right: 10px;
 `;
 

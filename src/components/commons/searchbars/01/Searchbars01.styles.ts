@@ -3,9 +3,9 @@ import styled from "@emotion/styled";
 
 export const Searchbar = styled.div`
   width: 100%;
-  height: 85px;
-  border-radius: 15px;
-  background-color: #cefbc9;
+  height: 55px;
+  background-color: #f2f3f6;
+  border: 2px solid #505957;
   padding: 0px 20px;
   display: flex;
   flex-direction: row;

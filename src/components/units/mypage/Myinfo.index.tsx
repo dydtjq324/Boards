@@ -122,12 +122,12 @@ export default function MyPageUI(): JSX.Element {
             <S.Button onClick={onClickPayment}>충전하기</S.Button>
           </S.MypageContainer>
           <S.TransactionsList>
-            <S.Row>
+            <S.Row_Title>
               <S.ColumnHeaderBasic>상태</S.ColumnHeaderBasic>
               <S.ColumnHeaderTitle>금액</S.ColumnHeaderTitle>
               <S.ColumnHeaderBasic>잔액</S.ColumnHeaderBasic>
               <S.ColumnHeaderBasic>날짜</S.ColumnHeaderBasic>
-            </S.Row>
+            </S.Row_Title>
 
             {activeTab === "tab1" && (
               <>
@@ -164,7 +164,7 @@ export default function MyPageUI(): JSX.Element {
             )}
             {activeTab === "tab3" && (
               <>
-                {SellList?.fetchPointTransactionsOfSelling.map((el) => (
+                {BuyList?.fetchPointTransactionsOfBuying.map((el) => (
                   <S.Row key={el._id}>
                     <S.ColumnBasic>{el.status}</S.ColumnBasic>
                     <S.ColumnTitle>{el.amount?.toLocaleString()}</S.ColumnTitle>
@@ -178,7 +178,7 @@ export default function MyPageUI(): JSX.Element {
             )}
             {activeTab === "tab4" && (
               <>
-                {BuyList?.fetchPointTransactionsOfBuying.map((el) => (
+                {SellList?.fetchPointTransactionsOfSelling.map((el) => (
                   <S.Row key={el._id}>
                     <S.ColumnBasic>{el.status}</S.ColumnBasic>
                     <S.ColumnTitle>

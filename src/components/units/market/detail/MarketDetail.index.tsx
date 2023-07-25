@@ -1,11 +1,9 @@
 import * as S from "./MarketDetail.styles";
 import { getDate } from "../../../../commons/libraries/utils";
 import type { IBoardDetailUIProps } from "./MarketDetail.types";
-import { useEffect, useState } from "react";
-import Dompurify from "dompurify";
+import { useState } from "react";
 import { useMoveToPage } from "../../../commons/hooks/custom/useMoveToPage";
 import { useQueryIdChecker } from "../../../commons/hooks/custom/useQueryIdChecker";
-import { MutationDeleteBoard } from "../../../commons/hooks/mutations/boards/deleteBoardMutation";
 import {
   FETCH_ITEM,
   useQueryFetchItem,
@@ -15,11 +13,10 @@ import { MutationDeleteItem } from "../../../commons/hooks/mutations/markets/del
 import { FETCH_USEDITEMS } from "../../../commons/hooks/queries/markets/usequeryfetchUseditems";
 import { PickItem } from "../../../commons/hooks/mutations/markets/pickItemMutation";
 import { useMutationBuySell } from "../../../commons/hooks/mutations/user/createBuysell";
-import { useAuth } from "../../../commons/hooks/custom/useAuth";
+
 export default function UsedItemDetailUI(
   props: IBoardDetailUIProps
 ): JSX.Element {
-  useAuth();
   const { id: useditemId } = useQueryIdChecker("useditemId");
   const { data } = useQueryFetchItem({ useditemId: String(useditemId) });
   const { onClickMoveToPage } = useMoveToPage();
@@ -27,7 +24,6 @@ export default function UsedItemDetailUI(
   const [deleteItem] = MutationDeleteItem();
   const [ItemBuySelling] = useMutationBuySell();
   const { data: logininfo } = useQueryLoggedIn();
-  console.log(data);
   const [pickItem] = PickItem();
 
   // 삭제 모달창 띄우기
@@ -71,6 +67,10 @@ export default function UsedItemDetailUI(
   };
 
   const onClickBuySelling = async (e: any): Promise<void> => {
+    if (!logininfo) {
+      alert("로그인후 구매가능합니다");
+      return;
+    }
     try {
       await ItemBuySelling({
         variables: {
@@ -135,7 +135,7 @@ export default function UsedItemDetailUI(
             </S.ImageWrapper>
             <S.Contents
               dangerouslySetInnerHTML={{
-                __html: Dompurify.sanitize(data?.fetchUseditem.contents ?? ""),
+                __html: data?.fetchUseditem.contents ?? "",
               }}
             ></S.Contents>
           </S.Body>

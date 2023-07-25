@@ -1,7 +1,13 @@
 import styled from "@emotion/styled";
 
+export const MainWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 export const Wrapper = styled.div`
-  width: 1200px;
+  width: 70%;
   margin-top: 30px;
   font-family: "myFont_light";
   display: flex;
@@ -10,15 +16,28 @@ export const Wrapper = styled.div`
   justify-content: center;
 `;
 export const Title = styled.h1`
-  font-size: 70px;
-  margin-bottom: 20px;
+  font-size: 40px;
+  margin: 40px 0;
+`;
+
+export const SubInfo = styled.div`
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  margin: 25px;
+  border-radius: 20px;
+  background-color: #eaeaea;
+  opacity: 0.5;
 `;
 export const Info = styled.div`
   font-size: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 1200px;
+  width: 100%;
   height: 200px;
   margin: 25px;
   border-radius: 20px;
@@ -28,16 +47,29 @@ export const Info = styled.div`
 
 export const MainContainer = styled.div`
   display: flex;
+  justify-content: space-between;
   margin-bottom: 100px;
 `;
-export const Container = styled.div`
-  font-size: 70px;
+export const Container = styled.a`
+  font-size: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 550px;
+  width: 100%;
   height: 250px;
   margin: 25px;
   border-radius: 20px;
   background-color: #cefbc9;
+  opacity: 0.8;
+  cursor: pointer;
+  /* background-color: #cefbc9; */
+  :hover {
+    transform: scale(1.1);
+  }
+`;
+
+export const Footer = styled.div`
+  height: 400px;
+  width: 100%;
+  background-color: red;
 `;

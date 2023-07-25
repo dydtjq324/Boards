@@ -4,17 +4,19 @@ import { HeartFilled } from "@ant-design/icons";
 export const BestDetailContainer = styled.div`
   display: flex;
   align-items: center;
+  font-size: 12px;
+  opacity: 0.7;
 `;
 export const UserImg = styled.img`
-  margin-right: 10px;
-  width: 24px;
+  margin-right: 5px;
+  width: 16px;
 `;
 
 export const Heart = styled(HeartFilled)`
-  font-size: 24px;
-  color: #ffd600;
+  margin-right: 5px;
+  font-size: 13px;
+  color: #b8b8b8;
   margin-left: 10px;
-  margin-right: 10px;
 `;
 
 export const BestTitleContainer = styled.div`
@@ -35,47 +37,44 @@ export const BestTitle = styled.h1`
 export const BestContainer = styled.div`
   display: flex;
   margin: 50px 0;
-  justify-content: space-around;
-  width: 1200px;
-  height: 340px;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 export const BestItemCoinTainer = styled.div`
-  width: 270px;
-  height: 340px;
+  width: 250px;
+  height: 300px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
 
-  box-shadow: 0px 0px 10px gray;
   :hover {
-    transform: scale(1.1);
-
-    box-shadow: 0px 0px 30px #2f9d27;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
   }
 `;
 
 export const BestItemimg = styled.img`
-  width: 270px;
-  height: 230px;
+  width: 100%;
+  height: 200px;
   margin-bottom: 10px;
   border-radius: 10px;
-  /* padding: 10px; */
+  overflow: hidden;
 `;
 
 export const BestItemContent = styled.div`
+  padding: 15px;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  margin-left: 20px;
+  /* margin-left: 20px; */
+  margin-bottom: 10px;
   justify-content: space-around;
 `;
 export const BestItemTitle = styled.div`
-  font-size: 25px;
-  font-weight: bold;
+  font-size: 17px;
 `;
 export const BestItemUser = styled.div`
-  font-size: 18px;
+  font-size: 21px;
   margin: 7px 0;
+  font-family: "myFont_semiBold";
 `;

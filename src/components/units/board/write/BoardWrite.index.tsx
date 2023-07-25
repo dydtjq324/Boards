@@ -27,7 +27,7 @@ const modules = {
 export default function BoardWriteUI(props: IBoardWriteProps): JSX.Element {
   const router = useRouter();
 
-  const { register, formState, watch, setValue, trigger } = useForm<IFormData>({
+  const { register, formState, watch, setValue, trigger } = useForm<any>({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
@@ -215,6 +215,27 @@ export default function BoardWriteUI(props: IBoardWriteProps): JSX.Element {
           <S.Error>{formState.errors.contents?.message}</S.Error>
         </S.InputWrapper>
         <S.InputWrapper>
+          <S.ImageWrapper>
+            <S.Label>사진첨부</S.Label>
+            <S.ImageBox>
+              {fileUrls.map((el, index) => (
+                <Uploads01
+                  key={uuidv4()}
+                  index={index}
+                  fileUrl={el}
+                  onChangeFileUrls={onChangeFileUrls}
+                />
+              ))}
+            </S.ImageBox>
+          </S.ImageWrapper>
+          <S.InputWrapper>
+            <S.Label>유튜브</S.Label>
+            <S.Youtube
+              {...register("youtubeUrl")}
+              placeholder="링크를 복사해주세요."
+              defaultValue={props.data?.fetchBoard.youtubeUrl ?? ""}
+            />
+          </S.InputWrapper>
           <S.Label>주소</S.Label>
           <S.ZipcodeWrapper>
             <S.Zipcode
@@ -226,6 +247,7 @@ export default function BoardWriteUI(props: IBoardWriteProps): JSX.Element {
                   : props.data?.fetchBoard.boardAddress?.zipcode ?? ""
               }
             />
+
             <S.SearchButton onClick={onClickAddressSearch}>
               우편번호 검색
             </S.SearchButton>
@@ -245,34 +267,7 @@ export default function BoardWriteUI(props: IBoardWriteProps): JSX.Element {
             }
           />
         </S.InputWrapper>
-        <S.InputWrapper>
-          <S.Label>유튜브</S.Label>
-          <S.Youtube
-            {...register("youtubeUrl")}
-            placeholder="링크를 복사해주세요."
-            defaultValue={props.data?.fetchBoard.youtubeUrl ?? ""}
-          />
-        </S.InputWrapper>
-        <S.ImageWrapper>
-          <S.Label>사진첨부</S.Label>
-          <S.ImageBox>
-            {fileUrls.map((el, index) => (
-              <Uploads01
-                key={uuidv4()}
-                index={index}
-                fileUrl={el}
-                onChangeFileUrls={onChangeFileUrls}
-              />
-            ))}
-          </S.ImageBox>
-        </S.ImageWrapper>
-        <S.OptionWrapper>
-          <S.Label>메인설정</S.Label>
-          <S.RadioButton type="radio" id="youtube" name="radio-button" />
-          <S.RadioLabel htmlFor="youtube">유튜브</S.RadioLabel>
-          <S.RadioButton type="radio" id="image" name="radio-button" />
-          <S.RadioLabel htmlFor="image">사진</S.RadioLabel>
-        </S.OptionWrapper>
+
         <S.ButtonWrapper>
           <S.SubmitButton
             style={{ backgroundColor: formState.isValid ? "yellow" : "" }}

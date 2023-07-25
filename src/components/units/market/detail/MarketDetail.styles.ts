@@ -16,7 +16,7 @@ export const PasswordInput = styled.input`
   margin-top: 10px;
 `;
 export const Wrapper = styled.div`
-  width: 1200px;
+  width: 70%;
   margin: 100px;
 `;
 export const Money = styled(MoneyCollectFilled)`
@@ -24,12 +24,14 @@ export const Money = styled(MoneyCollectFilled)`
   color: #ffd600;
   margin-right: 10px;
 `;
+
 export const Heart = styled(HeartFilled)`
-  font-size: 40px;
-  color: #ffd600;
+  font-size: 24px;
+  color: red;
   margin-left: 10px;
   margin-right: 10px;
 `;
+
 export const CardWrapper = styled.div`
   border: 1px solid black;
   padding-top: 80px;
@@ -98,7 +100,7 @@ export const BottomWrapper = styled.div`
 `;
 export const a = styled.link``;
 
-export const Button = styled.button`
+export const AButton = styled.button`
   width: 179px;
   height: 45px;
   background-color: white;
@@ -111,7 +113,22 @@ export const Button = styled.button`
     border-color: white;
   }
 `;
-
+export const Button = styled.button`
+  width: 180px;
+  height: 60px;
+  margin-left: 30px;
+  background-color: #505957;
+  color: white;
+  font-family: "myFont_semiBold";
+  border: none;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  cursor: pointer;
+  font-size: 22px;
+`;
 export const IconWrapper = styled.div`
   display: flex;
   text-align: center;
@@ -161,12 +178,11 @@ export const LinkIcon = styled.img``;
 export const ImageWrapper = styled.div`
   padding: 30px;
   display: flex;
-  flex-direction: column;
   align-items: center;
 `;
 
 export const Image = styled.img`
-  width: 596px;
-  height: 480px;
-  margin-bottom: 30px;
+  width: 400px;
+  height: 200px;
+  margin-right: 30px;
 `;

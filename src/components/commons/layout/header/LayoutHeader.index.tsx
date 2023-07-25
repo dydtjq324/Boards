@@ -42,8 +42,9 @@ export default function LayoutHeaderUI(): JSX.Element {
   return (
     <Wrapper>
       <InnerWrapper>
-        <InnerLogo onClick={onClickMoveToPage("/")}> 💎 Y S </InnerLogo>
+        <InnerLogo onClick={onClickMoveToPage("/")}>Y_MARKET </InnerLogo>
         <div>
+          {/* 💎  */}
           <MenuContainer>
             {data == undefined ? (
               <ButtonWrapper>

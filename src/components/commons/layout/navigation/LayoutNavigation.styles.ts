@@ -1,15 +1,20 @@
 import styled from "@emotion/styled";
 
 import {
+  HomeOutlined,
   SmileOutlined,
   ShoppingCartOutlined,
   SnippetsOutlined,
 } from "@ant-design/icons";
 
+export const HomeIcon = styled(HomeOutlined)`
+  font-size: 24px;
+  margin-right: 10px;
+  padding-bottom: 3px;
+`;
 export const SnippetsIcon = styled(SnippetsOutlined)`
   font-size: 27px;
   margin-right: 10px;
-  margin-top: 3px;
 `;
 export const ShoppingIcon = styled(ShoppingCartOutlined)`
   font-size: 30px;
@@ -45,20 +50,14 @@ export const MenuItem = styled.div`
   align-items: center;
   justify-content: center;
   height: 50px;
-  font-size: 22px;
+  font-size: 16px;
   padding: 10px 10px;
-  text-align: center;
-  width: 180px;
-  border: 2px solid #d5d5d5;
+  /* text-align: center; */
+  width: 120px;
   border-radius: 20px;
-  color: grey;
   cursor: pointer;
-  margin: 0 90px;
+  margin: 0 50px;
   font-family: "myFont_semiBold";
-  :hover {
-    color: #2f9d27;
-    font-size: 25px;
-  }
 `;
 
 export const MenuContainer = styled.div`

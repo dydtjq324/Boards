@@ -18,7 +18,7 @@ export const LikeIcon = styled(LikeOutlined)`
 `;
 export const BoardPasswordModal = styled(Modal)``;
 export const Wrapper = styled.div`
-  width: 1200px;
+  width: 70%;
   margin-top: 30px;
 
   font-family: "myFont_light";
@@ -42,37 +42,38 @@ export const Row = styled.div`
   border-bottom: 1px solid gray;
 
   :hover {
-    transform: scale(1.1);
-
-    box-shadow: 0px 0px 30px #2f9d27;
+    background-color: #eaeaea;
+    opacity: 0.5;
   }
 `;
 
 export const ColumnHeaderBasic = styled.div`
   font-size: 20px;
-  font-weight: bold;
+  font-family: "myFont";
   color: navy;
-  width: 10%;
+  width: 15%;
   text-align: center;
 `;
 
 export const ColumnHeaderTitle = styled.div`
   font-size: 20px;
-  font-weight: bold;
+  font-family: "myFont";
   color: navy;
-  width: 70%;
+  width: 65%;
   text-align: center;
 `;
 
 export const ColumnBasic = styled.div`
-  width: 10%;
+  width: 15%;
   text-align: center;
+  font-size: 18px;
 `;
 
 export const ColumnTitle = styled.div`
-  width: 70%;
+  width: 65%;
   text-align: center;
   cursor: pointer;
+  font-size: 18px;
 
   :hover {
     color: blue;
@@ -122,9 +123,6 @@ export const BestTitle = styled.h1`
   color: black;
   padding: 10px 5px;
   text-align: center;
-  border-radius: 20px;
-  background-color: #cefbc9;
-  opacity: 0.7;
   font-family: "myFont";
 `;
 export const BestContainer = styled.div`

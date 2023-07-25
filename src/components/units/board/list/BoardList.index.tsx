@@ -9,6 +9,7 @@ import Paginations01UI from "../../../commons/paginations/01/Paginations01.index
 import { usePagination } from "../../../commons/hooks/custom/usePagination";
 import Searchbars01UI from "../../../commons/searchbars/01/Searchbars01.index";
 import { useQueryFetchBoardOfTheBest } from "../../../commons/hooks/queries/boards/useQueryFetchBoardOfTheBest";
+import BoardBestUI from "../best/BoardBest.index";
 
 const SECRET = "@#$%";
 
@@ -34,34 +35,12 @@ export default function BoardListUI(): JSX.Element {
       <S.BestTitleContainer>
         <S.BestTitle>BEST</S.BestTitle>
       </S.BestTitleContainer>
-      <S.BestContainer>
-        {bestdata?.fetchBoardsOfTheBest.map((el) => (
-          <S.BestItemCoinTainer
-            key={el._id}
-            onClick={onClickMoveToPage(`/boards/${el._id}`)}
-          >
-            {el.images && el.images[0] && (
-              <S.BestItemimg
-                src={`https://storage.googleapis.com/${el.images[0]}`}
-              />
-            )}
-            <S.BestItemContent>
-              <S.BestItemTitle>{el.title} </S.BestItemTitle>
-              <S.BestItemDetainContainer>
-                <S.BestItemUser>
-                  <S.PeopleIcon rev={undefined} /> {el.writer}
-                </S.BestItemUser>
-                <S.BestItemUser>
-                  <S.LikeIcon rev={undefined} />
-                  {Number(el.likeCount)}
-                </S.BestItemUser>
-              </S.BestItemDetainContainer>
-            </S.BestItemContent>
-          </S.BestItemCoinTainer>
-        ))}
-      </S.BestContainer>
-
+      <BoardBestUI />
+      <S.BestTitleContainer>
+        <S.BestTitle>TOTAL</S.BestTitle>
+      </S.BestTitleContainer>
       <Searchbars01UI onChangeSearchbar={onChangeSearchbar} />
+
       <S.TableTop />
       <S.Row>
         <S.ColumnHeaderBasic>ID</S.ColumnHeaderBasic>

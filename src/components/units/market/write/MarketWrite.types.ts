@@ -8,10 +8,3 @@ export interface MarketWriteProps {
 export interface ISubmitButtonProps {
   isActive: boolean;
 }
-
-export interface IFormData {
-  name: string;
-  price: number;
-  contents: string;
-  addressDetail: string;
-}

@@ -1,18 +1,16 @@
 import { useMoveToPage } from "../../../commons/hooks/custom/useMoveToPage";
 import { useSearchbarItem } from "../../../commons/hooks/custom/useSearchbar";
 import { v4 as uuidv4 } from "uuid";
-import { useQueryfetchUseditemsOfTheBest } from "../../../commons/hooks/queries/markets/useQueryfetchUseditemsOfTheBest";
 import { useQueryFetchUseditems } from "../../../commons/hooks/queries/markets/usequeryfetchUseditems";
 import * as S from "./MarketList.styles";
 import InfiniteScroll from "react-infinite-scroller";
 import Searchbars01UI from "../../../commons/searchbars/01/Searchbars01.index";
-import MarketBest from "../best/MarketList.index";
+import MarketBest from "../best/MarketBest.index";
 
 const SECRET = "@#$%";
 
 export default function MarketListUI(): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
-  const { data: bestdata } = useQueryfetchUseditemsOfTheBest();
   const { data, fetchMore, refetch } = useQueryFetchUseditems();
   const { itemKeyword, onChangeSearchbar } = useSearchbarItem({
     refetch,
@@ -42,12 +40,17 @@ export default function MarketListUI(): JSX.Element {
         <S.BestTitle>BEST</S.BestTitle>
       </S.BestTitleContainer>
       <MarketBest />
+
+      <S.BestTitleContainer>
+        <S.BestTitle>TOTAL</S.BestTitle>
+      </S.BestTitleContainer>
       <S.Footer>
         <Searchbars01UI onChangeSearchbar={onChangeSearchbar} />
         <S.Button onClick={onClickMoveToPage("/markets/new")}>
           상품 등록하기
         </S.Button>
       </S.Footer>
+
       {data?.fetchUseditems && (
         <InfiniteScroll pageStart={0} loadMore={onLoadMore} hasMore={true}>
           {data?.fetchUseditems.map((el) => (

@@ -1,6 +1,6 @@
 import { useMoveToPage } from "../../../commons/hooks/custom/useMoveToPage";
 import { useQueryfetchUseditemsOfTheBest } from "../../../commons/hooks/queries/markets/useQueryfetchUseditemsOfTheBest";
-import * as S from "./MarketList.styles";
+import * as S from "./MarketBest.styles";
 ("../../../commons/searchbars/01/Searchbars01.index");
 
 export default function MarketBest(): JSX.Element {

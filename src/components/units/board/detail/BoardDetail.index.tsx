@@ -1,9 +1,7 @@
 import * as S from "./BoardDetail.styles";
 import { getDate } from "../../../../commons/libraries/utils";
-import type { IBoardDetailUIProps } from "./BoardDetail.types";
 import { Tooltip } from "antd";
 import { useState } from "react";
-import Dompurify from "dompurify";
 import type { MouseEvent } from "react";
 import { useMoveToPage } from "../../../commons/hooks/custom/useMoveToPage";
 import { useQueryIdChecker } from "../../../commons/hooks/custom/useQueryIdChecker";
@@ -11,6 +9,7 @@ import { useBoardLike } from "../../../commons/hooks/custom/useBoardLike";
 import { MutationDeleteBoard } from "../../../commons/hooks/mutations/boards/deleteBoardMutation";
 import { useQueryFetchBoard } from "../../../commons/hooks/queries/boards/useQueryFetchBoard";
 import { FETCH_BOARDS } from "../../../commons/hooks/queries/boards/useQueryFetchBoards";
+import { FETCH_BEST } from "../../../commons/hooks/queries/boards/useQueryFetchBoardOfTheBest";
 export default function BoardDetailUI(): JSX.Element {
   const { id: boardId } = useQueryIdChecker("boardId");
   const { data } = useQueryFetchBoard({
@@ -43,6 +42,9 @@ export default function BoardDetailUI(): JSX.Element {
         refetchQueries: [
           {
             query: FETCH_BOARDS,
+          },
+          {
+            query: FETCH_BEST,
           },
         ],
       });
@@ -80,6 +82,7 @@ export default function BoardDetailUI(): JSX.Element {
             <S.IconWrapper>
               <S.LinkIcon src="/images/board/detail/link.png" />
               <Tooltip
+                color="#505957"
                 placement="topRight"
                 title={`${data?.fetchBoard.boardAddress?.address ?? ""} ${
                   data?.fetchBoard.boardAddress?.addressDetail ?? ""
@@ -103,7 +106,7 @@ export default function BoardDetailUI(): JSX.Element {
             </S.ImageWrapper>
             <S.Contents
               dangerouslySetInnerHTML={{
-                __html: Dompurify.sanitize(data?.fetchBoard.contents ?? ""),
+                __html: data?.fetchBoard.contents ?? "",
               }}
             ></S.Contents>
             {data?.fetchBoard.youtubeUrl !== "" && (
