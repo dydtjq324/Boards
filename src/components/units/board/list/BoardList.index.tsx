@@ -1,5 +1,8 @@
 import { getDate } from "../../../../commons/libraries/utils";
-import { useQueryFetchBoards } from "../../../commons/hooks/queries/boards/useQueryFetchBoards";
+import {
+  FETCH_BOARDS,
+  useQueryFetchBoards,
+} from "../../../commons/hooks/queries/boards/useQueryFetchBoards";
 import { useQueryFetchBoardsCount } from "../../../commons/hooks/queries/boards/useQueryFetchBoardsCount";
 import { useMoveToPage } from "../../../commons/hooks/custom/useMoveToPage";
 import { useSearchbar } from "../../../commons/hooks/custom/useSearchbar";
@@ -8,18 +11,22 @@ import { v4 as uuidv4 } from "uuid";
 import Paginations01UI from "../../../commons/paginations/01/Paginations01.index";
 import { usePagination } from "../../../commons/hooks/custom/usePagination";
 import Searchbars01UI from "../../../commons/searchbars/01/Searchbars01.index";
-import { useQueryFetchBoardOfTheBest } from "../../../commons/hooks/queries/boards/useQueryFetchBoardOfTheBest";
 import BoardBestUI from "../best/BoardBest.index";
+import { useApolloClient, useQuery } from "@apollo/client";
+import { FETCH_BOARD } from "../../../commons/hooks/queries/boards/useQueryFetchBoard";
+import {
+  IQuery,
+  IQueryFetchBoardsArgs,
+} from "../../../../commons/types/generated/types";
 
 const SECRET = "@#$%";
 
 export default function BoardListUI(): JSX.Element {
   const { onClickMoveToPage } = useMoveToPage();
   const { data, refetch } = useQueryFetchBoards();
-  const { data: bestdata } = useQueryFetchBoardOfTheBest();
   const { data: dataBoardsCount, refetch: refetchBoardsCount } =
     useQueryFetchBoardsCount();
-
+  const client = useApolloClient();
   const paginationArgs = usePagination({
     refetch,
     count: dataBoardsCount?.fetchBoardsCount,
@@ -30,6 +37,13 @@ export default function BoardListUI(): JSX.Element {
     refetchBoardsCount,
   });
 
+  const prefetchBoard = (boardId: string) => async () => {
+    await client.query({
+      query: FETCH_BOARD,
+      variables: { boardId },
+    });
+  };
+
   return (
     <S.Wrapper>
       <S.BestTitleContainer>
@@ -39,7 +53,12 @@ export default function BoardListUI(): JSX.Element {
       <S.BestTitleContainer>
         <S.BestTitle>TOTAL</S.BestTitle>
       </S.BestTitleContainer>
-      <Searchbars01UI onChangeSearchbar={onChangeSearchbar} />
+      <S.RowContainer>
+        <Searchbars01UI onChangeSearchbar={onChangeSearchbar} />
+        <S.Button onClick={onClickMoveToPage("/boards/new")}>
+          게시물등록
+        </S.Button>
+      </S.RowContainer>
 
       <S.TableTop />
       <S.Row>
@@ -55,6 +74,7 @@ export default function BoardListUI(): JSX.Element {
           </S.ColumnBasic>
           <S.ColumnTitle
             id={el._id}
+            onMouseOver={prefetchBoard(el._id)}
             onClick={onClickMoveToPage(`/boards/${el._id}`)}
           >
             {el.title
@@ -73,10 +93,6 @@ export default function BoardListUI(): JSX.Element {
       <S.TableBottom />
       <S.Footer>
         <Paginations01UI {...paginationArgs} />
-        <S.Button onClick={onClickMoveToPage("/boards/new")}>
-          <S.PencilIcon src="/images/board/list/write.png" />
-          게시물 등록하기
-        </S.Button>
       </S.Footer>
     </S.Wrapper>
   );

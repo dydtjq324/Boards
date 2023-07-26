@@ -35,33 +35,24 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
   const [updateItem] = updateItemMutation();
   const [createItem] = createItemMutation();
   const [isActive, setIsActive] = useState(false);
-  // const [address, setAddress] = useState("");
-  const [lat, setLat] = useState(0);
-  const [lng, setLng] = useState(0);
   const [fileUrls, setFileUrls] = useState(["", "", ""]);
 
-  const onChangeLat = (e: any) => {
-    setLat(e.target.value);
-  };
-  const onChangeLng = (e: any) => {
-    setLng(e.target.value);
-  };
   const onCompleteAddressSearch = () => {
     const script = document.createElement("script");
     script.src =
       "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=a87bb92b00b671f21fed64e087b05422";
     document.head.appendChild(script);
-    script.onload = () => {
-      window.kakao.maps.load(() => {
-        const container = document.getElementById("map"); // 지도를 담을 영역의 DOM 레퍼런스
-        const options = {
-          // 지도를 생성할 때 필요한 기본 옵션
-          center: new window.kakao.maps.LatLng(lat, lng), // 지도의 중심좌표.
-          level: 3, // 지도의 레벨(확대, 축소 정도)
-        };
-        const map = new window.kakao.maps.Map(container, options); // 지도 생성 및 객체 리턴
-      });
-    };
+
+    window.kakao.maps.load(() => {
+      const { lng, lat } = watch();
+      const container = document.getElementById("map"); // 지도를 담을 영역의 DOM 레퍼런스
+      const options = {
+        // 지도를 생성할 때 필요한 기본 옵션
+        center: new window.kakao.maps.LatLng(Number(lat), Number(lng)), // 지도의 중심좌표.
+        level: 3, // 지도의 레벨(확대, 축소 정도)
+      };
+      const map = new window.kakao.maps.Map(container, options); // 지도 생성 및 객체 리턴
+    });
   };
 
   useEffect(() => {
@@ -76,7 +67,7 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
   };
 
   const onClickSubmit = async (): Promise<void> => {
-    const { contents, price, name, addressDetail } = watch();
+    const { contents, price, name, addressDetail, lng, lat } = watch();
     if (formState.isValid) {
       try {
         const result = await createItem({
@@ -109,16 +100,24 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
   };
 
   const onClickUpdate = async (): Promise<void> => {
-    const { contents, name, price, addressDetail } = watch();
+    const { contents, name, price, addressDetail, lng, lat } = watch();
     const currentFiles = JSON.stringify(fileUrls);
     const defaultFiles = JSON.stringify(props.data?.fetchUseditem.images);
     const isChangedFiles = currentFiles !== defaultFiles;
     const updateUseditemInput: IUpdateUseditemInput = {};
     if (contents !== "") updateUseditemInput.contents = contents;
     if (isChangedFiles) updateUseditemInput.images = fileUrls;
-
     if (name !== "") updateUseditemInput.name = name;
     if (price !== Number("")) updateUseditemInput.price = Number(price);
+    if (lng !== Number("") || lat !== Number("") || addressDetail !== "") {
+      updateUseditemInput.useditemAddress = {};
+      if (lng !== Number(""))
+        updateUseditemInput.useditemAddress.lng = Number(lng);
+      if (lat !== Number(""))
+        updateUseditemInput.useditemAddress.lat = Number(lat);
+      if (addressDetail !== "")
+        updateUseditemInput.useditemAddress.addressDetail = addressDetail;
+    }
     try {
       const result = await updateItem({
         variables: {
@@ -209,8 +208,20 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
             <S.AddressDetailContainer>
               <S.Label>거래 장소</S.Label>
               <S.ZipcodeWrapper>
-                <S.Zipcode placeholder="위도" onChange={onChangeLat} />
-                <S.Zipcode placeholder="경도" onChange={onChangeLng} />
+                <S.Zipcode
+                  placeholder="위도"
+                  {...register("lat")}
+                  defaultValue={
+                    props.data?.fetchUseditem.useditemAddress?.lat ?? ""
+                  }
+                />
+                <S.Zipcode
+                  placeholder="경도"
+                  {...register("lng")}
+                  defaultValue={
+                    props.data?.fetchUseditem.useditemAddress?.lng ?? ""
+                  }
+                />
                 <button onClick={onCompleteAddressSearch}>찾기</button>
               </S.ZipcodeWrapper>
 
@@ -223,16 +234,12 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
               />
             </S.AddressDetailContainer>
 
-            <S.KakaoMap
-              id="map"
-              style={{ width: 400, height: 300 }}
-            ></S.KakaoMap>
+            <S.KakaoMap id="map"></S.KakaoMap>
           </S.AddressContainer>
         </S.InputWrapper>
 
         <S.ButtonWrapper>
           <S.SubmitButton
-            style={{ backgroundColor: formState.isValid ? "yellow" : "" }}
             onClick={props.isEdit ? onClickUpdate : onClickSubmit}
             isActive={props.isEdit ? true : isActive}
           >

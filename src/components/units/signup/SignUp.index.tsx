@@ -10,6 +10,7 @@ interface IFormData {
   myEmail: string;
   myName: string;
   myPassword: string;
+  myPasswordConfirm: string;
 }
 
 export default function SignUpUI(): JSX.Element {
@@ -34,7 +35,7 @@ export default function SignUpUI(): JSX.Element {
           },
         });
         alert("회원가입 성공");
-        onClickMoveToPage("/login")();
+        onClickMoveToPage("/")();
       } catch (error) {
         if (error instanceof Error) alert(error.message);
       }
@@ -45,7 +46,7 @@ export default function SignUpUI(): JSX.Element {
     <S.Wrapper>
       <S.Title>
         <Link href={"/boards"}>
-          <S.StyledLink>Protein Market</S.StyledLink>
+          <S.StyledLink>Y_MARKET</S.StyledLink>
         </Link>
       </S.Title>
       <S.CardWrapper>
@@ -65,6 +66,14 @@ export default function SignUpUI(): JSX.Element {
           ></S.PasswordInput>{" "}
           <S.Error style={{ color: "red" }}>
             {formState.errors.myPassword?.message}
+          </S.Error>
+          <S.PasswordInput
+            type="password"
+            placeholder="비밀번호확인"
+            {...register("myPasswordConfirm")}
+          ></S.PasswordInput>{" "}
+          <S.Error style={{ color: "red" }}>
+            {formState.errors.myPasswordConfirm?.message}
           </S.Error>
         </S.myForm>
         <S.LoginBtn

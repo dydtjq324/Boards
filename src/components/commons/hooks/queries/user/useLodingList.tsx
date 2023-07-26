@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { IQuery } from "../../../../../commons/types/generated/types";
 
-const FETCH_MYPOINT = gql`
+export const FETCH_MYPOINT = gql`
   query fetchPointTransactionsOfLoading {
     fetchPointTransactionsOfLoading {
       _id

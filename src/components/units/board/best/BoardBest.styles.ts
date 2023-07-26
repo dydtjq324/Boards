@@ -33,13 +33,13 @@ export const BestTitle = styled.h1`
 export const BestContainer = styled.div`
   display: flex;
   margin: 10px 0;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: 100%;
 `;
 
 export const BestItemCoinTainer = styled.div`
   margin-top: 40px;
-  width: 250px;
+  width: 200px;
   height: 300px;
   border-radius: 10px;
   display: flex;
@@ -70,7 +70,7 @@ export const BestItemContent = styled.div`
 export const BestItemTitle = styled.div`
   margin-top: 5px;
   margin: 0px 5px;
-  font-size: 23px;
+  font-size: 18px;
   font-weight: 900;
 `;
 export const BestItemUser = styled.div`

@@ -49,7 +49,7 @@ export default function LoginUI(): JSX.Element {
     <S.Wrapper>
       <S.Title>
         <Link href={"/boards"}>
-          <S.StyledLink>ReviveMart</S.StyledLink>
+          <S.StyledLink>Y_MARKET</S.StyledLink>
         </Link>
       </S.Title>
       <S.CardWrapper>

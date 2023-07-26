@@ -5,4 +5,6 @@ export const schema = yup.object({
   price: yup.number().required("가격은 필수입니다"),
   contents: yup.string().required("내용를 입력해주세요"),
   addressDetail: yup.string(),
+  lng: yup.number(),
+  lat: yup.number(),
 });

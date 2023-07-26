@@ -8,7 +8,8 @@ import {
   Wrapper,
 } from "./LayoutNavigation.styles";
 import { useMoveToPage } from "../../hooks/custom/useMoveToPage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 const NAVIGATION_MENUS = [
   { name: "홈", page: "/", icon: <HomeIcon rev={undefined} /> },
@@ -19,11 +20,23 @@ const NAVIGATION_MENUS = [
 
 export default function LayoutNavigationUI(): JSX.Element {
   const [activeTab, setActiveTab] = useState("마켓");
-  const { onClickMoveToPage } = useMoveToPage();
+  const router = useRouter();
+
+  useEffect(() => {
+    // 현재 라우터 경로를 기준으로 activeTab 상태 설정
+    const currentPath = router.pathname;
+    const activeMenu = NAVIGATION_MENUS.find(
+      (menu) => menu.page === currentPath
+    );
+    if (activeMenu) {
+      setActiveTab(activeMenu.name);
+    }
+  }, [router.pathname]);
+
   const handleTabClick = (el: any) => {
     setActiveTab(el.name);
     console.log(el);
-    onClickMoveToPage(el.page)();
+    router.push(el.page);
   };
   return (
     <Wrapper>

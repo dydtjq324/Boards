@@ -47,7 +47,7 @@ export default function MarketListUI(): JSX.Element {
       <S.Footer>
         <Searchbars01UI onChangeSearchbar={onChangeSearchbar} />
         <S.Button onClick={onClickMoveToPage("/markets/new")}>
-          상품 등록하기
+          상품 등록
         </S.Button>
       </S.Footer>
 
@@ -90,7 +90,6 @@ export default function MarketListUI(): JSX.Element {
                 </S.BestDetailContainer>
               </S.ItemDetailContainer>
               <S.ColumnHeaderBasic>
-                <S.Money rev={undefined} />
                 {el.price?.toLocaleString()} 원
               </S.ColumnHeaderBasic>
             </S.Row>

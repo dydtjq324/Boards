@@ -4,8 +4,8 @@ import styled from "@emotion/styled";
 export const Searchbar = styled.div`
   width: 100%;
   height: 55px;
-  background-color: #f2f3f6;
-  border: 2px solid #505957;
+  border-radius: 15px;
+  background-color: #505957;
   padding: 0px 20px;
   display: flex;
   flex-direction: row;
@@ -24,11 +24,15 @@ export const FireFilledIcon = styled(FireFilled)`
 `;
 
 export const SearchbarInput = styled.input`
-  font-size: 23px;
+  font-size: 19px;
   width: 100%;
   height: 100%;
   border: none;
   outline: none;
   background: none;
   margin: 0px 20px;
+  ::placeholder {
+    color: white;
+  }
+  color: white;
 `;

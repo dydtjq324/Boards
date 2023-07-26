@@ -18,30 +18,29 @@ export const MypageTitleContainer = styled.div`
   margin-left: 200px;
   display: flex;
   justify-content: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 `;
 export const MypageTitle = styled.div`
   cursor: pointer;
   border: none;
   width: 150px;
-  font-size: 21px;
+  font-size: 15px;
   color: black;
   margin: 0 30px;
   padding: 10px 5px;
   text-align: center;
   border-radius: 20px;
   background-color: #cefbc9;
-  opacity: 0.7;
   font-family: "myFont";
 `;
 export const Title = styled.h1`
-  font-size: 40px;
+  font-size: 25px;
   font-family: "myFont_semiBold";
   margin: 20px 0px;
 `;
 
 export const MyPoint = styled.div`
-  font-size: 30px;
+  font-size: 20px;
   margin: 10px 0px;
   padding-bottom: 10px;
   border-bottom: 2px solid grey;
@@ -118,7 +117,7 @@ export const Error = styled.div`
 `;
 
 export const Avatar = styled.img`
-  width: 80px;
+  width: 60px;
   margin: 20px 0px;
 `;
 
@@ -159,10 +158,10 @@ export const TableBottom = styled.div`
 `;
 
 export const Row = styled.div`
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: row;
-  height: 62px;
+  height: 52px;
   line-height: 52px;
   border-bottom: 1px solid gray;
   :hover {
@@ -170,27 +169,25 @@ export const Row = styled.div`
   }
 `;
 export const Row_Title = styled.div`
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: row;
-  height: 62px;
+  height: 52px;
   line-height: 52px;
   border-bottom: 1px solid gray;
-
-  background-color: #eaeaea;
-  opacity: 0.5;
+  background-color: #505957;
+  color: white;
 `;
 
 export const ColumnHeaderBasic = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   width: 20%;
   text-align: center;
 `;
 
 export const ColumnHeaderTitle = styled.div`
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 18px;
   width: 50%;
   text-align: center;
 `;
@@ -228,26 +225,22 @@ export const TransactionsList = styled.div`
 `;
 
 export const Button = styled.button`
-  width: 150px;
-  height: 50px;
-  background-color: #47c83e;
-  opacity: 0.7;
+  width: 80px;
+  height: 40px;
+  background-color: #505957;
+  color: white;
   font-family: "myFont_semiBold";
   border: none;
   border-radius: 15px;
 
   cursor: pointer;
-  font-size: 25px;
-  font-weight: bold;
-  :hover {
-    transform: scale(1.1);
-  }
+  font-size: 16px;
 `;
 
 export const InputMoney = styled.input`
   padding-left: 10px;
   border-radius: 10px;
-  width: 150px;
+  width: 120px;
   height: 40px;
   margin-bottom: 15px;
   cursor: pointer;
@@ -255,4 +248,8 @@ export const InputMoney = styled.input`
   :hover {
     transform: scale(1.1);
   }
+`;
+
+export const Footer = styled.div`
+  height: 200px;
 `;

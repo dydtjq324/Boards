@@ -25,7 +25,7 @@ export const CardWrapper = styled.div`
 
 export const IdInput = styled.input`
   width: 500px;
-  height: 70px;
+  height: 40px;
   padding-left: 20px;
   font-size: 20px;
   border: none;
@@ -35,7 +35,7 @@ export const IdInput = styled.input`
 
 export const PasswordInput = styled.input`
   width: 500px;
-  height: 70px;
+  height: 40px;
   padding-left: 20px;
   font-size: 20px;
   border: none;
@@ -50,8 +50,9 @@ export const LoginBtn = styled.div`
   width: 500px;
   height: 70px;
   font-size: 20px;
-  background-color: #cefbc9;
 
+  background-color: #505957;
+  color: white;
   border: none;
   outline: none;
   border-radius: 10px;
@@ -74,6 +75,7 @@ export const SigUpnBtn = styled.div`
 `;
 
 export const StyledLink = styled.a`
+  font-family: "Myfont";
   text-decoration: none;
   cursor: pointer;
 `;
@@ -81,6 +83,8 @@ export const StyledLink = styled.a`
 export const Error = styled.div`
   margin-top: 15px;
   margin-left: 15px;
+  height: 15px;
+  font-size: 12px;
 `;
 
 export const myForm = styled.form``;

@@ -8,9 +8,11 @@ export const Error = styled.div`
   padding-top: 10px;
   font-size: 18px;
   color: red;
+  height: 30px;
 `;
 export const StyledLink = styled.a`
   text-decoration: none;
+  font-family: "myFont";
   cursor: pointer;
 `;
 export const myForm = styled.form``;
@@ -60,7 +62,10 @@ export const LoginBtn = styled.div`
   width: 500px;
   height: 70px;
   font-size: 20px;
-  background-color: #cefbc9;
+
+  background-color: #505957;
+  color: white;
+  font-family: "myFont_semiBold";
   opacity: 0.7;
   border: none;
   outline: none;
@@ -76,7 +81,8 @@ export const SigUpnBtn = styled.div`
   width: 500px;
   height: 70px;
   font-size: 20px;
-  background-color: #cefbc9;
+  background-color: #505957;
+  color: white;
   border: none;
   outline: none;
   cursor: pointer;

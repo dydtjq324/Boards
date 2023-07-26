@@ -8,4 +8,5 @@ export const schemaSignUp = yup.object({
     .min(4, "비밀번호는 4자리이상 15자리 이하입니다")
     .max(15, "비밀번호는 4자리이상 15자리 이하입니다")
     .required("비밀번호를 입력해주세요"),
+  myPasswordConfirm: yup.string().required("필수입니다"),
 });

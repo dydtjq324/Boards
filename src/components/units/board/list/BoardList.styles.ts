@@ -42,23 +42,23 @@ export const Row = styled.div`
   border-bottom: 1px solid gray;
 
   :hover {
-    background-color: #eaeaea;
-    opacity: 0.5;
+    :hover {
+      box-shadow: 0px 0px 10px gray;
+    }
   }
 `;
 
 export const ColumnHeaderBasic = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   font-family: "myFont";
-  color: navy;
   width: 15%;
   text-align: center;
 `;
 
 export const ColumnHeaderTitle = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   font-family: "myFont";
-  color: navy;
+
   width: 65%;
   text-align: center;
 `;
@@ -66,7 +66,7 @@ export const ColumnHeaderTitle = styled.div`
 export const ColumnBasic = styled.div`
   width: 15%;
   text-align: center;
-  font-size: 18px;
+  font-size: 15px;
 `;
 
 export const ColumnTitle = styled.div`
@@ -74,10 +74,6 @@ export const ColumnTitle = styled.div`
   text-align: center;
   cursor: pointer;
   font-size: 18px;
-
-  :hover {
-    color: blue;
-  }
 `;
 
 export const Footer = styled.div`
@@ -88,26 +84,19 @@ export const Footer = styled.div`
   margin-bottom: 50px;
 `;
 
-export const PencilIcon = styled.img``;
-
 export const Button = styled.button`
-  width: 200px;
-  height: 60px;
-
-  background-color: #47c83e;
-  opacity: 0.7;
-  border: none;
-  border-radius: 15px;
+  width: 220px;
+  height: 55px;
+  margin-left: 30px;
+  font-family: "myFont_light";
+  border-radius: 20px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
+  border: 2px solid #505957;
+  background-color: white;
   cursor: pointer;
   font-size: 20px;
-  font-weight: bold;
-  :hover {
-    transform: scale(1.1);
-  }
 `;
 
 export const TextToken = styled.span`
@@ -124,6 +113,8 @@ export const BestTitle = styled.h1`
   padding: 10px 5px;
   text-align: center;
   font-family: "myFont";
+  margin-bottom: 20px;
+  font-size: 23px;
 `;
 export const BestContainer = styled.div`
   display: flex;
@@ -177,4 +168,9 @@ export const BestItemUser = styled.div`
 `;
 export const BestItemDetainContainer = styled.div`
   display: flex;
+`;
+
+export const RowContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;

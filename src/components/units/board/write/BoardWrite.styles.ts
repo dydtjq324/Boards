@@ -6,7 +6,6 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 export const Wrapper = styled.div`
   width: 1200px;
-  /* height: 1847px; */
   border: 1px solid black;
   margin: 100px;
   padding-top: 80px;
@@ -92,10 +91,11 @@ export const Zipcode = styled.input`
 `;
 
 export const SearchButton = styled.button`
+  background-color: #505957;
+
   width: 124px;
   height: 52px;
   margin-left: 16px;
-  background-color: black;
   cursor: pointer;
   color: white;
 `;

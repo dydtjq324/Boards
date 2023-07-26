@@ -4,16 +4,17 @@ import { useState } from "react";
 import type { ChangeEvent } from "react";
 import BoardCommentWriteUI from "./ItemCommentList.presenter";
 import { FETCH_ITEM_COMMENTS } from "../list/ItemCommentList.queries";
-import {
-  CREATE_ITEM_COMMENT,
-  UPDATE_ITEM_COMMENT,
-} from "./BoardCommentItemCommentListWrite.queries";
+
 import type {
   IMutation,
   IMutationCreateUseditemQuestionArgs,
   IMutationUpdateUseditemQuestionArgs,
 } from "../../../../commons/types/generated/types";
 import ItemCommentWriteUI from "./ItemCommentList.presenter";
+import {
+  CREATE_ITEM_COMMENT,
+  UPDATE_ITEM_COMMENT,
+} from "./BoardCommentItemCommentListWrite.queries";
 
 export default function ItemCommentWrite(props: any): JSX.Element {
   const router = useRouter();

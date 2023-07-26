@@ -37,12 +37,12 @@ export const BestTitle = styled.h1`
 export const BestContainer = styled.div`
   display: flex;
   margin: 50px 0;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: 100%;
 `;
 
 export const BestItemCoinTainer = styled.div`
-  width: 250px;
+  width: 200px;
   height: 300px;
   border-radius: 10px;
   display: flex;
@@ -71,10 +71,10 @@ export const BestItemContent = styled.div`
   justify-content: space-around;
 `;
 export const BestItemTitle = styled.div`
-  font-size: 17px;
+  font-size: 15px;
 `;
 export const BestItemUser = styled.div`
-  font-size: 21px;
+  font-size: 18px;
   margin: 7px 0;
   font-family: "myFont_semiBold";
 `;

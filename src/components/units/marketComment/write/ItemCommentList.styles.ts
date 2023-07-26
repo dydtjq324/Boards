@@ -53,7 +53,8 @@ export const ContentsLength = styled.div`
 export const Button = styled.button`
   width: 91px;
   height: 51px;
-  background-color: black;
+
+  background-color: #505957;
   color: white;
   cursor: pointer;
 `;

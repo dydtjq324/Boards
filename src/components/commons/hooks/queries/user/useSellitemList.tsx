@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { IQuery } from "../../../../../commons/types/generated/types";
 
-const FETCH_MYPOINT = gql`
+export const FETCH_SELLPOINT = gql`
   query fetchPointTransactionsOfSelling {
     fetchPointTransactionsOfSelling {
       _id
@@ -16,6 +16,6 @@ const FETCH_MYPOINT = gql`
 
 export const useQuerysellItem = () => {
   const result =
-    useQuery<Pick<IQuery, "fetchPointTransactionsOfSelling">>(FETCH_MYPOINT);
+    useQuery<Pick<IQuery, "fetchPointTransactionsOfSelling">>(FETCH_SELLPOINT);
   return result;
 };

@@ -9,11 +9,17 @@ import {
 import { useState } from "react";
 import { useMutationCreatePoint } from "../../commons/hooks/mutations/user/createPoint";
 import * as S from "./Myinfo.styles";
-import { useQueryTransactions } from "../../commons/hooks/queries/user/useTransaction";
+import {
+  FETCH_TOTALMYPOINT,
+  useQueryTransactions,
+} from "../../commons/hooks/queries/user/useTransaction";
 import { getDate } from "../../../commons/libraries/utils";
 import { useQuerysellItem } from "../../commons/hooks/queries/user/useSellitemList";
 import { useQueryBuyItem } from "../../commons/hooks/queries/user/useBuyItemList";
-import { useQueryLoding } from "../../commons/hooks/queries/user/useLodingList";
+import {
+  FETCH_MYPOINT,
+  useQueryLoding,
+} from "../../commons/hooks/queries/user/useLodingList";
 export default function MyPageUI(): JSX.Element {
   const { data } = useQueryLoggedIn();
   const { data: TransactionsList } = useQueryTransactions();
@@ -52,6 +58,12 @@ export default function MyPageUI(): JSX.Element {
               {
                 query: FETCH_USER_LOGGED_IN,
               },
+              {
+                query: FETCH_TOTALMYPOINT,
+              },
+              {
+                query: FETCH_MYPOINT,
+              },
             ],
           });
         } else {
@@ -73,7 +85,7 @@ export default function MyPageUI(): JSX.Element {
           <S.MypageTitle
             onClick={() => handleTabClick("tab1")}
             style={{
-              backgroundColor: activeTab === "tab1" ? "#47c83e" : "#cefbc9",
+              backgroundColor: activeTab === "tab1" ? "#cefbc9" : "#eaeaea",
             }}
           >
             전체내역
@@ -81,7 +93,7 @@ export default function MyPageUI(): JSX.Element {
           <S.MypageTitle
             onClick={() => handleTabClick("tab2")}
             style={{
-              backgroundColor: activeTab === "tab2" ? "#47c83e" : "#cefbc9",
+              backgroundColor: activeTab === "tab2" ? "#cefbc9" : "#eaeaea",
             }}
           >
             충전내역
@@ -89,7 +101,7 @@ export default function MyPageUI(): JSX.Element {
           <S.MypageTitle
             onClick={() => handleTabClick("tab3")}
             style={{
-              backgroundColor: activeTab === "tab3" ? "#47c83e" : "#cefbc9",
+              backgroundColor: activeTab === "tab3" ? "#cefbc9" : "#eaeaea",
             }}
           >
             구매내역
@@ -97,7 +109,7 @@ export default function MyPageUI(): JSX.Element {
           <S.MypageTitle
             onClick={() => handleTabClick("tab4")}
             style={{
-              backgroundColor: activeTab === "tab4" ? "#47c83e" : "#cefbc9",
+              backgroundColor: activeTab === "tab4" ? "#cefbc9" : "#eaeaea",
             }}
           >
             판매내역
@@ -167,11 +179,13 @@ export default function MyPageUI(): JSX.Element {
                 {BuyList?.fetchPointTransactionsOfBuying.map((el) => (
                   <S.Row key={el._id}>
                     <S.ColumnBasic>{el.status}</S.ColumnBasic>
-                    <S.ColumnTitle>{el.amount?.toLocaleString()}</S.ColumnTitle>
+                    <S.ColumnTitle>
+                      {el.amount?.toLocaleString()}원
+                    </S.ColumnTitle>
                     <S.ColumnBasic>
                       {el.balance?.toLocaleString()}원
                     </S.ColumnBasic>
-                    <S.ColumnBasic>{getDate(el.createdAt)}원</S.ColumnBasic>
+                    <S.ColumnBasic>{getDate(el.createdAt)}</S.ColumnBasic>
                   </S.Row>
                 ))}
               </>
@@ -194,6 +208,7 @@ export default function MyPageUI(): JSX.Element {
             )}
           </S.TransactionsList>
         </S.MypageDivider>
+        <S.Footer />
       </S.Wrapper>
     </>
   );

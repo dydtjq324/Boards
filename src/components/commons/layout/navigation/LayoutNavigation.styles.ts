@@ -53,7 +53,7 @@ export const MenuItem = styled.div`
   font-size: 16px;
   padding: 10px 10px;
   /* text-align: center; */
-  width: 120px;
+  width: 140px;
   border-radius: 20px;
   cursor: pointer;
   margin: 0 50px;

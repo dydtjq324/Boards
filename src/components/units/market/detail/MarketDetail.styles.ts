@@ -18,6 +18,8 @@ export const PasswordInput = styled.input`
 export const Wrapper = styled.div`
   width: 70%;
   margin: 100px;
+
+  font-family: "myFont_light";
 `;
 export const Money = styled(MoneyCollectFilled)`
   font-size: 50px;
@@ -80,16 +82,21 @@ export const Body = styled.div`
 `;
 
 export const Title = styled.h1`
-  padding-top: 50px;
+  padding-top: 25px;
+  font-size: 20px;
 `;
-
+export const KakaoMap = styled.div`
+  width: 500px;
+  height: 400px;
+`;
 export const MoneyText = styled.div`
-  font-size: 50px;
+  font-size: 30px;
   margin: 30px 0;
 `;
 export const Contents = styled.div`
   padding-top: 40px;
   padding-bottom: 120px;
+  font-size: 25px;
 `;
 
 export const BottomWrapper = styled.div`
@@ -100,19 +107,6 @@ export const BottomWrapper = styled.div`
 `;
 export const a = styled.link``;
 
-export const AButton = styled.button`
-  width: 179px;
-  height: 45px;
-  background-color: white;
-  border: 1px solid gray;
-  margin: 0px 12px;
-  cursor: pointer;
-
-  :hover {
-    background-color: gold;
-    border-color: white;
-  }
-`;
 export const Button = styled.button`
   width: 180px;
   height: 60px;
@@ -179,10 +173,17 @@ export const ImageWrapper = styled.div`
   padding: 30px;
   display: flex;
   align-items: center;
+  flex-direction: column;
 `;
 
 export const Image = styled.img`
-  width: 400px;
-  height: 200px;
+  width: 500px;
+  height: 400px;
   margin-right: 30px;
+  border-radius: 20px;
+`;
+
+export const addressDetail = styled.div`
+  margin-top: 50px;
+  font-size: 30px;
 `;

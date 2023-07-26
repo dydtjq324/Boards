@@ -1,3 +1,8 @@
+import { useEffect } from "react";
+
+declare const window: typeof globalThis & {
+  kakao: any;
+};
 import * as S from "./MarketDetail.styles";
 import { getDate } from "../../../../commons/libraries/utils";
 import type { IBoardDetailUIProps } from "./MarketDetail.types";
@@ -13,6 +18,8 @@ import { MutationDeleteItem } from "../../../commons/hooks/mutations/markets/del
 import { FETCH_USEDITEMS } from "../../../commons/hooks/queries/markets/usequeryfetchUseditems";
 import { PickItem } from "../../../commons/hooks/mutations/markets/pickItemMutation";
 import { useMutationBuySell } from "../../../commons/hooks/mutations/user/createBuysell";
+import { FETCH_TOTALMYPOINT } from "../../../commons/hooks/queries/user/useTransaction";
+import { FETCH_BUYLIST } from "../../../commons/hooks/queries/user/useBuyItemList";
 
 export default function UsedItemDetailUI(
   props: IBoardDetailUIProps
@@ -25,6 +32,29 @@ export default function UsedItemDetailUI(
   const [ItemBuySelling] = useMutationBuySell();
   const { data: logininfo } = useQueryLoggedIn();
   const [pickItem] = PickItem();
+  console.log(data);
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src =
+      "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=a87bb92b00b671f21fed64e087b05422";
+    document.head.appendChild(script);
+
+    script.onload = () => {
+      window.kakao.maps.load(() => {
+        const container = document.getElementById("map"); // 지도를 담을 영역의 DOM 레퍼런스
+        const options = {
+          // 지도를 생성할 때 필요한 기본 옵션
+          center: new window.kakao.maps.LatLng(
+            data?.fetchUseditem.useditemAddress?.lat,
+            data?.fetchUseditem.useditemAddress?.lng
+          ), // 지도의 중심좌표.
+          level: 3, // 지도의 레벨(확대, 축소 정도)
+        };
+        const map = new window.kakao.maps.Map(container, options); // 지도 생성 및 객체 리턴
+      });
+    };
+  }, []);
 
   // 삭제 모달창 띄우기
   const onClickOpenModal = () => {
@@ -80,6 +110,12 @@ export default function UsedItemDetailUI(
           {
             query: FETCH_USEDITEMS,
           },
+          {
+            query: FETCH_BUYLIST,
+          },
+          {
+            query: FETCH_TOTALMYPOINT,
+          },
         ],
       });
       alert("구매성공");
@@ -118,11 +154,6 @@ export default function UsedItemDetailUI(
             </S.IconWrapper>
           </S.Header>
           <S.Body>
-            <S.Title>{data?.fetchUseditem.name}</S.Title>
-            <S.MoneyText>
-              <S.Money rev={undefined} />{" "}
-              {data?.fetchUseditem.price?.toLocaleString()} 원
-            </S.MoneyText>
             <S.ImageWrapper>
               {data?.fetchUseditem.images
                 ?.filter((el) => el)
@@ -133,12 +164,21 @@ export default function UsedItemDetailUI(
                   />
                 ))}
             </S.ImageWrapper>
+            <S.Title>{data?.fetchUseditem.name}</S.Title>
+            <S.MoneyText>
+              {data?.fetchUseditem.price?.toLocaleString()} 원
+            </S.MoneyText>
+
             <S.Contents
               dangerouslySetInnerHTML={{
                 __html: data?.fetchUseditem.contents ?? "",
               }}
             ></S.Contents>
           </S.Body>
+          <S.KakaoMap id="map"></S.KakaoMap>
+          <S.addressDetail>
+            {data?.fetchUseditem.useditemAddress?.addressDetail}
+          </S.addressDetail>
         </S.CardWrapper>
         <S.BottomWrapper>
           {data?.fetchUseditem.seller?.email ===

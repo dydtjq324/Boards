@@ -10,6 +10,7 @@ export const FETCH_ITEM = gql`
       useditemAddress {
         lat
         lng
+        addressDetail
       }
       seller {
         _id

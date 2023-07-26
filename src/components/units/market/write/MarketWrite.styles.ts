@@ -84,7 +84,7 @@ export const ZipcodeWrapper = styled.div`
 `;
 
 export const Zipcode = styled.input`
-  width: 77px;
+  width: 100px;
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
@@ -166,6 +166,7 @@ export const SubmitButton = styled.button`
   width: 180px;
   height: 60px;
   margin-left: 30px;
+
   background-color: #505957;
   color: white;
   font-family: "myFont_semiBold";
@@ -179,7 +180,7 @@ export const SubmitButton = styled.button`
   font-size: 22px;
 
   background-color: ${(props: ISubmitButtonProps) =>
-    props.isActive ? "yellow" : "none"};
+    props.isActive ? "gray" : "none"};
 `;
 
 export const Error = styled.div`
@@ -206,6 +207,6 @@ export const AddressDetailContainer = styled.div`
 
 export const KakaoMap = styled.div`
   width: 400px;
-  height: 300px;
+  height: 400px;
   margin-left: 100px;
 `;

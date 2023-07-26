@@ -9,7 +9,7 @@ export const BestDetailContainer = styled.div`
 `;
 export const UserImg = styled.img`
   margin-right: 10px;
-  width: 24px;
+  width: 18px;
 `;
 
 export const Money = styled(MoneyCollectFilled)`
@@ -20,8 +20,8 @@ export const Money = styled(MoneyCollectFilled)`
 `;
 
 export const Heart = styled(HeartFilled)`
-  font-size: 24px;
-  color: red;
+  font-size: 15px;
+  color: #b8b8b8;
   margin-left: 10px;
   margin-right: 10px;
 `;
@@ -49,10 +49,11 @@ export const TableBottom = styled.div`
 export const Row = styled.div`
   display: flex;
   flex-direction: row;
-  height: 170px;
+  height: 130px;
   border-bottom: 2px solid #eaeaea;
+
   :hover {
-    color: #2f9d27;
+    box-shadow: 0px 0px 10px gray;
   }
 `;
 
@@ -64,11 +65,11 @@ export const ItemImg = styled.img`
 
 export const ColumnHeaderBasic = styled.div`
   display: flex;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
   width: 25%;
   text-align: center;
-  margin-top: 60px;
+  margin-top: 50px;
 `;
 export const ItemDetailContainer = styled.div`
   margin: 20px 0;
@@ -80,13 +81,11 @@ export const ItemDetailContainer = styled.div`
 `;
 export const ColumnHeaderTitle = styled.div`
   margin-bottom: 10px;
-  font-size: 25px;
-  font-weight: bold;
+  font-size: 20px;
   color: black;
 `;
 export const ColumnHeaderSubTitle = styled.div`
-  font-size: 15px;
-  font-weight: bold;
+  font-size: 8px;
   color: grey;
   margin-bottom: 5px;
 `;
@@ -98,33 +97,26 @@ export const ColumnBasic = styled.div`
 export const Footer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: end;
-  padding-top: 50px;
-  border-bottom: 2px solid #eaeaea;
+  border-bottom: 2px solid gray;
   padding: 20px;
+  align-items: center;
 `;
 
 export const PencilIcon = styled.img``;
 
 export const Button = styled.button`
-  width: 250px;
-  height: 60px;
+  width: 220px;
+  height: 55px;
   margin-left: 30px;
-  /* background-color: #47c83e; */
-  /* opacity: 0.7; */
   font-family: "myFont_light";
-  /* border: none; */
-
-  border-radius: 15px;
+  border-radius: 20px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
+  border: 2px solid #505957;
+  background-color: white;
   cursor: pointer;
-  font-size: 25px;
-  :hover {
-    transform: scale(1.1);
-  }
+  font-size: 20px;
 `;
 
 export const TextToken = styled.span`
@@ -141,6 +133,8 @@ export const BestTitle = styled.h1`
   padding: 10px 5px;
   text-align: center;
   font-family: "myFont";
+  margin-bottom: 20px;
+  font-size: 23px;
 `;
 export const BestContainer = styled.div`
   display: flex;

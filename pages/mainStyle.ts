@@ -16,7 +16,8 @@ export const Wrapper = styled.div`
   justify-content: center;
 `;
 export const Title = styled.h1`
-  font-size: 40px;
+  font-size: 23px;
+  font-family: "myFont";
   margin: 40px 0;
 `;
 
@@ -33,16 +34,15 @@ export const SubInfo = styled.div`
   opacity: 0.5;
 `;
 export const Info = styled.div`
-  font-size: 35px;
+  height: 300px;
+  font-size: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 200px;
   margin: 25px;
   border-radius: 20px;
-  background-color: #eaeaea;
-  opacity: 0.5;
+  background-color: #fbf7f2;
 `;
 
 export const MainContainer = styled.div`
