@@ -2,8 +2,11 @@ import styled from "@emotion/styled";
 import { Modal } from "antd";
 import type { ISubmitButtonProps } from "./BoardWrite.types";
 import DaumPostcode from "react-daum-postcode";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 export const Wrapper = styled.div`
   width: 1200px;
   border: 1px solid black;

@@ -8,8 +8,7 @@ export const FETCH_ITEM = gql`
   query fetchUseditem($useditemId: ID!) {
     fetchUseditem(useditemId: $useditemId) {
       useditemAddress {
-        lat
-        lng
+        address
         addressDetail
       }
       seller {

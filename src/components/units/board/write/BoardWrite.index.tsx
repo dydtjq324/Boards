@@ -164,7 +164,7 @@ export default function BoardWriteUI(props: IBoardWriteProps): JSX.Element {
   return (
     <>
       {isOpen && (
-        <S.AddressModal visible={true} onCancel={handleCancel}>
+        <S.AddressModal open={true} onCancel={handleCancel}>
           <S.AddressSearchInput onComplete={onCompleteAddressSearch} />
         </S.AddressModal>
       )}

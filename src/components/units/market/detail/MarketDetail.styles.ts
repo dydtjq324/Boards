@@ -94,8 +94,8 @@ export const MoneyText = styled.div`
   margin: 30px 0;
 `;
 export const Contents = styled.div`
-  padding-top: 40px;
-  padding-bottom: 120px;
+  padding-top: 30px;
+  padding-bottom: 20px;
   font-size: 25px;
 `;
 

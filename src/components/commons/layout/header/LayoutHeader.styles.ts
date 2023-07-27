@@ -35,9 +35,6 @@ export const InnerButton = styled.div`
   cursor: pointer;
 
   font-family: "myFont_semiBold";
-  :hover {
-    color: #47c83e;
-  }
 `;
 
 export const ButtonContainer = styled.div`

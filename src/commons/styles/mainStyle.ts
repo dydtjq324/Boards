@@ -34,6 +34,7 @@ export const SubInfo = styled.div`
   opacity: 0.5;
 `;
 export const Info = styled.div`
+  font-family: "myFont_semiBold";
   height: 300px;
   font-size: 25px;
   display: flex;
@@ -41,8 +42,8 @@ export const Info = styled.div`
   align-items: center;
   width: 100%;
   margin: 25px;
-  border-radius: 20px;
-  background-color: #fbf7f2;
+  border-radius: 30px;
+  background-color: #faf4c0;
 `;
 
 export const MainContainer = styled.div`

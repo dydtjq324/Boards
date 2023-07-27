@@ -32,12 +32,13 @@ export default function UsedItemDetailUI(
   const [ItemBuySelling] = useMutationBuySell();
   const { data: logininfo } = useQueryLoggedIn();
   const [pickItem] = PickItem();
-  console.log(data);
+  console.log(data?.fetchUseditem.useditemAddress?.address);
 
   useEffect(() => {
     const script = document.createElement("script");
+    script.type = "text/javascript";
     script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=a87bb92b00b671f21fed64e087b05422";
+      "//dapi.kakao.com/v2/maps/sdk.js?appkey=a87bb92b00b671f21fed64e087b05422&libraries=services&autoload=false";
     document.head.appendChild(script);
 
     script.onload = () => {
@@ -45,17 +46,43 @@ export default function UsedItemDetailUI(
         const container = document.getElementById("map"); // 지도를 담을 영역의 DOM 레퍼런스
         const options = {
           // 지도를 생성할 때 필요한 기본 옵션
-          center: new window.kakao.maps.LatLng(
-            data?.fetchUseditem.useditemAddress?.lat,
-            data?.fetchUseditem.useditemAddress?.lng
-          ), // 지도의 중심좌표.
+          center: new window.kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표.
           level: 3, // 지도의 레벨(확대, 축소 정도)
         };
         const map = new window.kakao.maps.Map(container, options); // 지도 생성 및 객체 리턴
+        const geocoder = new window.kakao.maps.services.Geocoder();
+        geocoder.addressSearch(
+          data?.fetchUseditem.useditemAddress?.address,
+
+          function (result: any, status: any) {
+            // 정상적으로 검색이 완료됐으면
+            if (status === window.kakao.maps.services.Status.OK) {
+              const coords = new window.kakao.maps.LatLng(
+                result[0].y,
+                result[0].x
+              );
+
+              // 결과값으로 받은 위치를 마커로 표시합니다
+              const marker = new window.kakao.maps.Marker({
+                map: map,
+                position: coords,
+              });
+
+              // 인포윈도우로 장소에 대한 설명을 표시합니다
+              const infowindow = new window.kakao.maps.InfoWindow({
+                content:
+                  '<div style="width:150px;text-align:center;padding:6px 0;">거래위치</div>',
+              });
+              infowindow.open(map, marker);
+
+              // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+              map.setCenter(coords);
+            }
+          }
+        );
       });
     };
-  }, []);
-
+  }, [data]);
   // 삭제 모달창 띄우기
   const onClickOpenModal = () => {
     setIsOpenDeleteModal(true);
@@ -127,6 +154,10 @@ export default function UsedItemDetailUI(
 
   return (
     <>
+      {/* <script
+        type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a87bb92b00b671f21fed64e087b05422&libraries=services&autoload=false"
+      ></script> */}
       {isOpenDeleteModal && (
         <S.PasswordModal
           open={true}
@@ -175,7 +206,12 @@ export default function UsedItemDetailUI(
               }}
             ></S.Contents>
           </S.Body>
-          <S.KakaoMap id="map"></S.KakaoMap>
+
+          {data?.fetchUseditem.useditemAddress?.address ? (
+            <S.KakaoMap id="map"></S.KakaoMap>
+          ) : (
+            <></>
+          )}
           <S.addressDetail>
             {data?.fetchUseditem.useditemAddress?.addressDetail}
           </S.addressDetail>

@@ -12,6 +12,7 @@ import { createItemMutation } from "../../../commons/hooks/mutations/markets/cre
 import { updateItemMutation } from "../../../commons/hooks/mutations/markets/updateItemMutation";
 import { FETCH_ITEM } from "../../../commons/hooks/queries/markets/useQueryFetchItem";
 import { FETCH_USEDITEMS } from "../../../commons/hooks/queries/markets/usequeryfetchUseditems";
+import { Address } from "react-daum-postcode";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -36,24 +37,86 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
   const [createItem] = createItemMutation();
   const [isActive, setIsActive] = useState(false);
   const [fileUrls, setFileUrls] = useState(["", "", ""]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [zipcode, setZipcode] = useState("");
+  const [address, setAddress] = useState("");
 
-  const onCompleteAddressSearch = () => {
+  const onClickAddressSearch = (): void => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const onCompleteAddressSearchas = (data: Address): void => {
+    setAddress(data.address);
+    setZipcode(data.zonecode);
+    setIsOpen((prev) => !prev);
+    console.log(data.address);
     const script = document.createElement("script");
     script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=a87bb92b00b671f21fed64e087b05422";
+      "//dapi.kakao.com/v2/maps/sdk.js?appkey=a87bb92b00b671f21fed64e087b05422&libraries=services&autoload=false";
     document.head.appendChild(script);
+    script.onload = () => {
+      window.kakao.maps.load(() => {
+        const container = document.getElementById("map"); // 지도를 담을 영역의 DOM 레퍼런스
+        const options = {
+          // 지도를 생성할 때 필요한 기본 옵션
+          center: new window.kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표.
+          level: 3, // 지도의 레벨(확대, 축소 정도)
+        };
+        const map = new window.kakao.maps.Map(container, options); // 지도 생성 및 객체 리턴
+        const geocoder = new window.kakao.maps.services.Geocoder();
+        geocoder.addressSearch(
+          data.address,
+          setAddress(data.address),
+          function (result: any, status: any) {
+            // 정상적으로 검색이 완료됐으면
+            if (status === window.kakao.maps.services.Status.OK) {
+              const coords = new window.kakao.maps.LatLng(
+                result[0].y,
+                result[0].x
+              );
 
-    window.kakao.maps.load(() => {
-      const { lng, lat } = watch();
-      const container = document.getElementById("map"); // 지도를 담을 영역의 DOM 레퍼런스
-      const options = {
-        // 지도를 생성할 때 필요한 기본 옵션
-        center: new window.kakao.maps.LatLng(Number(lat), Number(lng)), // 지도의 중심좌표.
-        level: 3, // 지도의 레벨(확대, 축소 정도)
-      };
-      const map = new window.kakao.maps.Map(container, options); // 지도 생성 및 객체 리턴
-    });
+              // 결과값으로 받은 위치를 마커로 표시합니다
+              const marker = new window.kakao.maps.Marker({
+                map: map,
+                position: coords,
+              });
+
+              // 인포윈도우로 장소에 대한 설명을 표시합니다
+              const infowindow = new window.kakao.maps.InfoWindow({
+                content:
+                  '<div style="width:150px;text-align:center;padding:6px 0;">거래위치</div>',
+              });
+              infowindow.open(map, marker);
+
+              // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+              map.setCenter(coords);
+            }
+          }
+        );
+      });
+    };
   };
+  const handleCancel = (): void => {
+    setIsOpen(false);
+  };
+
+  // const onCompleteAddressSearch = () => {
+  //   const script = document.createElement("script");
+  //   script.src =
+  //     "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=a87bb92b00b671f21fed64e087b05422&libraries=services";
+  //   document.head.appendChild(script);
+
+  //   window.kakao.maps.load(() => {
+  //     const { lng, lat } = watch();
+  //     const container = document.getElementById("map"); // 지도를 담을 영역의 DOM 레퍼런스
+  //     const options = {
+  //       // 지도를 생성할 때 필요한 기본 옵션
+  //       center: new window.kakao.maps.LatLng(Number(lat), Number(lng)), // 지도의 중심좌표.
+  //       level: 3, // 지도의 레벨(확대, 축소 정도)
+  //     };
+  //     const map = new window.kakao.maps.Map(container, options); // 지도 생성 및 객체 리턴
+  //   });
+  // };
 
   useEffect(() => {
     const images = props.data?.fetchUseditem.images;
@@ -67,7 +130,7 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
   };
 
   const onClickSubmit = async (): Promise<void> => {
-    const { contents, price, name, addressDetail, lng, lat } = watch();
+    const { contents, price, name, addressDetail } = watch();
     if (formState.isValid) {
       try {
         const result = await createItem({
@@ -75,8 +138,7 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
             createUseditemInput: {
               contents,
               useditemAddress: {
-                lat: Number(lat),
-                lng: Number(lng),
+                address: address,
                 addressDetail: addressDetail,
               },
               images: [...fileUrls],
@@ -100,7 +162,7 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
   };
 
   const onClickUpdate = async (): Promise<void> => {
-    const { contents, name, price, addressDetail, lng, lat } = watch();
+    const { contents, name, price, addressDetail } = watch();
     const currentFiles = JSON.stringify(fileUrls);
     const defaultFiles = JSON.stringify(props.data?.fetchUseditem.images);
     const isChangedFiles = currentFiles !== defaultFiles;
@@ -109,12 +171,9 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
     if (isChangedFiles) updateUseditemInput.images = fileUrls;
     if (name !== "") updateUseditemInput.name = name;
     if (price !== Number("")) updateUseditemInput.price = Number(price);
-    if (lng !== Number("") || lat !== Number("") || addressDetail !== "") {
+    if (addressDetail !== "") {
       updateUseditemInput.useditemAddress = {};
-      if (lng !== Number(""))
-        updateUseditemInput.useditemAddress.lng = Number(lng);
-      if (lat !== Number(""))
-        updateUseditemInput.useditemAddress.lat = Number(lat);
+
       if (addressDetail !== "")
         updateUseditemInput.useditemAddress.addressDetail = addressDetail;
     }
@@ -151,6 +210,11 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
 
   return (
     <>
+      {isOpen && (
+        <S.AddressModal open={true} onCancel={handleCancel}>
+          <S.AddressSearchInput onComplete={onCompleteAddressSearchas} />
+        </S.AddressModal>
+      )}
       <S.Wrapper>
         <S.Title>{props.isEdit ? "상품 수정하기" : "상품 등록하기"}</S.Title>
 
@@ -187,8 +251,6 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
             onChange={onChageContents}
             defaultValue={props.data?.fetchUseditem.contents}
           />
-
-          <S.Error>{formState.errors.contents?.message}</S.Error>
         </S.InputWrapper>
         <S.InputWrapper>
           <S.ImageWrapper>
@@ -204,40 +266,40 @@ export default function MarketWriteUI(props: MarketWriteProps): JSX.Element {
               ))}
             </S.ImageBox>
           </S.ImageWrapper>
-          <S.AddressContainer>
-            <S.AddressDetailContainer>
-              <S.Label>거래 장소</S.Label>
-              <S.ZipcodeWrapper>
-                <S.Zipcode
-                  placeholder="위도"
-                  {...register("lat")}
-                  defaultValue={
-                    props.data?.fetchUseditem.useditemAddress?.lat ?? ""
-                  }
-                />
-                <S.Zipcode
-                  placeholder="경도"
-                  {...register("lng")}
-                  defaultValue={
-                    props.data?.fetchUseditem.useditemAddress?.lng ?? ""
-                  }
-                />
-                <button onClick={onCompleteAddressSearch}>찾기</button>
-              </S.ZipcodeWrapper>
+          <S.Label>주소</S.Label>
+          <S.ZipcodeWrapper>
+            <S.Zipcode
+              placeholder="07250"
+              readOnly
+              value={
+                zipcode !== ""
+                  ? zipcode
+                  : props.data?.fetchUseditem.useditemAddress?.zipcode ?? ""
+              }
+            />
 
-              <S.Address
-                {...register("addressDetail")}
-                placeholder="상세주소"
-                defaultValue={
-                  props.data?.fetchUseditem.useditemAddress?.addressDetail ?? ""
-                }
-              />
-            </S.AddressDetailContainer>
-
-            <S.KakaoMap id="map"></S.KakaoMap>
-          </S.AddressContainer>
+            <S.SearchButton onClick={onClickAddressSearch}>
+              우편번호 검색
+            </S.SearchButton>
+          </S.ZipcodeWrapper>
+          <S.Address
+            readOnly
+            value={
+              address !== ""
+                ? address
+                : props.data?.fetchUseditem.useditemAddress?.address ?? ""
+            }
+          />
+          <S.Address
+            placeholder="상세주소입력"
+            {...register("addressDetail")}
+            defaultValue={
+              props.data?.fetchUseditem.useditemAddress?.addressDetail ?? ""
+            }
+          />
         </S.InputWrapper>
 
+        {address ? <S.KakaoMap id="map"></S.KakaoMap> : <></>}
         <S.ButtonWrapper>
           <S.SubmitButton
             onClick={props.isEdit ? onClickUpdate : onClickSubmit}

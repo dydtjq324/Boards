@@ -13,8 +13,8 @@ const CREATE_USEDITEM = gql`
       price
       name
       useditemAddress {
-        lat
-        lng
+        address
+        addressDetail
       }
     }
   }

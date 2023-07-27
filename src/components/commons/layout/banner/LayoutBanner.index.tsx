@@ -7,8 +7,8 @@ export default function LayoutBannerUI(): JSX.Element {
   const settings = {
     infinite: true,
     speed: 700,
-    autoplay: true, // 자동으로 넘어가도록 추가
-    autoplaySpeed: 5000,
+    // autoplay: true, // 자동으로 넘어가도록 추가
+    // autoplaySpeed: 5000,
     slidesToShow: 1,
     slidesToScroll: 1,
   };
@@ -16,9 +16,7 @@ export default function LayoutBannerUI(): JSX.Element {
   return (
     <Wrapper>
       <Slider {...settings}>
-        <SliderItem src="/images/layout/banner01.png" />
-        <SliderItem src="/images/layout/banner03.png" />
-        <SliderItem src="/images/layout/banner04.png" />
+        <SliderItem src="/images/layout/banner02.png" />
       </Slider>
     </Wrapper>
   );

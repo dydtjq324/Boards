@@ -2,8 +2,12 @@ import styled from "@emotion/styled";
 import { Modal } from "antd";
 import type { ISubmitButtonProps } from "./MarketWrite.types";
 import DaumPostcode from "react-daum-postcode";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
 export const Wrapper = styled.div`
   width: 1200px;
   /* height: 1847px; */
@@ -100,7 +104,7 @@ export const SearchButton = styled.button`
 `;
 
 export const Address = styled.input`
-  width: 496px;
+  width: 996px;
   height: 52px;
   margin-top: 16px;
   padding-left: 16px;
@@ -182,13 +186,13 @@ export const SubmitButton = styled.button`
   background-color: ${(props: ISubmitButtonProps) =>
     props.isActive ? "gray" : "none"};
 `;
-
 export const Error = styled.div`
-  padding-top: 10px;
-  font-size: 18px;
+  margin-top: 15px;
+  margin-left: 15px;
+  height: 15px;
+  font-size: 15px;
   color: red;
 `;
-
 export const AddressModal = styled(Modal)``;
 
 export const AddressSearchInput = styled(DaumPostcode)``;
@@ -206,7 +210,7 @@ export const AddressDetailContainer = styled.div`
 `;
 
 export const KakaoMap = styled.div`
-  width: 400px;
+  width: 500px;
   height: 400px;
-  margin-left: 100px;
+  margin: 100px 0px;
 `;
